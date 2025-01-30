@@ -1,0 +1,202 @@
+/* article.css */
+:root {
+    --primary-color: #1DA1F2;
+    --background-color: #f7f9fa;
+    --sidebar-color: #ffffff;
+    --text-color: #14171a;
+    --secondary-text: #657786;
+    --border-color: #e1e8ed;
+    --positive-color: #4CAF50;
+    --negative-color: #f44336;
+    --neutral-color: #FF9800;
+}
+
+/* Keep your existing base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Article Content Section */
+#article-content {
+    background-color: var(--sidebar-color);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.article-text {
+    line-height: 1.8;
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+/* Analysis Section */
+#analysis-result {
+    background-color: var(--sidebar-color);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sentiment Meters */
+.sentiment-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 25px 0;
+}
+
+.sentiment-meter {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.meter-label {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.meter {
+    height: 12px;
+    background: var(--background-color);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.meter-value {
+    height: 100%;
+    transition: width 0.8s ease-in-out;
+}
+
+.meter-value.sentiment {
+    background: linear-gradient(to right, var(--negative-color), var(--neutral-color), var(--positive-color));
+}
+
+.meter-value.objectivity {
+    background: var(--primary-color);
+}
+
+.meter-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--secondary-text);
+}
+
+/* Analysis Cards */
+.analysis-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.analysis-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.analysis-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.analysis-card ul {
+    list-style: none;
+}
+
+.analysis-card li {
+    margin: 12px 0;
+    padding-left: 24px;
+    position: relative;
+    color: var(--secondary-text);
+    font-size: 14px;
+}
+
+.analysis-card li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* Original Article Link */
+#original-article-link {
+    background-color: var(--sidebar-color);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.original-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.original-link:hover {
+    background-color: #1991db;
+}
+
+/* Analysis Explanation */
+.analysis-explanation {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.analysis-explanation h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.analysis-explanation p {
+    color: var(--secondary-text);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sentiment-container,
+    .analysis-details {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 15px;
+    }
+}

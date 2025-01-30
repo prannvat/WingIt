@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing It - Welcome</title>
+    <link rel="stylesheet" href="/static/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="landing-container">
+        <!-- Left side - News Preview -->
+        <div class="news-preview">
+            <div class="overlay"></div>
+            <div class="preview-content">
+                <h1>Stay Informed</h1>
+                <p>Your personalized news experience awaits</p>
+                <div class="preview-cards">
+                    <!-- Preview cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side - Authentication -->
+        <div class="auth-container">
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <h1>Wing It</h1>
+            </div>
+            <h2>Welcome to Wing It</h2>
+            <p class="subtitle">Your personalized news platform</p>
+
+            <div class="auth-buttons">
+                <button class="auth-btn signin-btn" onclick="location.href='/signin'">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+                <button class="auth-btn signup-btn" onclick="location.href='/signup'">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+                <button class="auth-btn guest-btn" onclick="location.href='/news'">
+                    <i class="fas fa-user-secret"></i>
+                    Continue as Guest
+                </button>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-globe"></i>
+                    <span>Global Coverage</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <span>Real-time Updates</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trending Topics</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/landing.js"></script>
+</body>
+</html>
