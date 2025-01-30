@@ -1,8 +1,0 @@
-Make sure to always run the command:
-
-source venv/bin/activate
-
-Before you run python from the terminal
-And do not close this terminal until you are done developing!
-
-If the terminal closes, you MUST re-run the above command.
