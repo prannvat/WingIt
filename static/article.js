@@ -25,12 +25,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 function displayArticleAndAnalysis(data, articleUrl) {
     const articleContent = document.getElementById('article-content');
     const analysisResult = document.getElementById('analysis-result');
-    const originalArticleLink = document.getElementById('original-article-link');
+
 
     // Display article content
     articleContent.innerHTML = `
         <h2>Article Content</h2>
         <div class="article-text">${data.content}</div>
+        <a href="${articleUrl}" target="_blank" class="original-link">
+                Read the full article here
+        </a>
     `;
 
     // Calculate meter values and colors
@@ -91,15 +94,6 @@ function displayArticleAndAnalysis(data, articleUrl) {
                     <li>Reader impact: ${getReaderImpact(data.polarity, data.subjectivity)}</li>
                 </ul>
             </div>
-        </div>
-    `;
-
-    originalArticleLink.innerHTML = `
-        <div class="original-link-container">
-            <h2>Original Article</h2>
-            <a href="${articleUrl}" target="_blank" class="original-link">
-                Read the full article here
-            </a>
         </div>
     `;
 }
