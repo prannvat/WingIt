@@ -15,8 +15,8 @@
 }
 
 body {
-    font-family: 'Oswald', sans-serif;
-    background: linear-gradient(to right, rgba(255, 0, 0, 0.30), rgba(0, 0, 255, 0.30));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(to right, rgba(210, 36, 36, 0.3), rgba(40, 40, 215, 0.3));
     height: 100vh;
     display: flex;
     align-items: center;
@@ -47,13 +47,13 @@ body {
 h1 {
     font-size: 28px;
     font-weight: 700;
-    color: #ff3131;
+    color: #e83737;
     text-decoration: underline;
 }
 
 .logo i {
     font-size: 28px;
-    color: #ff3131;
+    color: #e83737;
 }
 
 .logo h1 {
@@ -63,7 +63,7 @@ h1 {
 
 h2 {
     text-align: center;
-    font-size: 22px;
+    font-size: 25px;
     margin-bottom: 30px;
     color: var(rgb(138, 132, 132));
 }
@@ -75,7 +75,7 @@ h2 {
 input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid transparent;
+    border: 2px solid #4c74e380;
     border-radius: 25px;
     font-size: 16px;
     background-color: transparent;
@@ -95,7 +95,7 @@ input::placeholder {
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: rgba(76, 116, 227, 0.5);
+    background-color: #4c74e380;
     color: white;
     border: none;
     border-radius: 25px;
@@ -106,7 +106,7 @@ input::placeholder {
 }
 
 .submit-btn:hover {
-    background-color: rgba(41, 86, 233, 0.5);
+    background-color: #2956e980;
     transform: translateY(-2px);
 }
 
