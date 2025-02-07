@@ -37,6 +37,45 @@ body {
     gap: 20px;
 }
 
+.button-heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#back-button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 50px;  /* Makes it fully rounded */
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+/* SVG Icon Styling (Optional for better visuals) */
+#back-button img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1); /* Makes the icon white */
+}
+
+/* Hover & Active States */
+#back-button:hover {
+    background-color: #0d8ae6;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#back-button:active {
+    background-color: #0b79c1;
+    transform: scale(0.98);
+}
+
 /* Force scrollbar to always be visible on WebKit browsers (Chrome, Safari, Edge) */
 .article-text::-webkit-scrollbar {
     width: 10px; /* Adjust width */
