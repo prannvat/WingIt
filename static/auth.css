@@ -27,38 +27,66 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .auth-form {
+    text-align: center;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 .logo {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #e83737;
-    text-decoration: underline;
+    width: 50px;
+    height: 50px;
 }
 
 .logo i {
-    font-size: 28px;
-    color: #e83737;
+    font-size: 38px;
+    position: absolute;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.logo h1 {
-    font-size: 28px;
+.logo .newspaper {
+    color: #e83737;
+    opacity: 1;
+}
+
+.logo .tick {
+    color: #004aad;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.logo:hover .newspaper {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.logo:hover .tick {
+    opacity: 1;
+    transform: scale(1);
+}
+
+h1 {
+    font-size: 32px;
     font-weight: 700;
+    color: #e83737;
+    text-decoration: underline;
 }
 
 h2 {
