@@ -66,7 +66,7 @@ body {
     opacity: 1;
 }
 
-.logo .tick {
+.logo .filter {
     color: #004aad;
     opacity: 0;
     transform: scale(0);
@@ -77,16 +77,24 @@ body {
     transform: scale(0);
 }
 
-.logo:hover .tick {
+.logo:hover .filter {
     opacity: 1;
     transform: scale(1);
 }
 
 h1 {
-    font-size: 32px;
+    font-size: 34px;
     font-weight: 700;
+}
+
+h1 .wing {
+    color: #004aad;
+    border-bottom: 2px solid #004aad;
+}
+
+h1 .it {
     color: #e83737;
-    text-decoration: underline;
+    border-bottom: 2px solid #e83737;
 }
 
 h2 {
