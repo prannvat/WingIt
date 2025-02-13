@@ -2,6 +2,13 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const articleUrl = urlParams.get('url');
+    
+    //checks for the back button to be clicked
+    document.addEventListener('click', (event) => {
+        if (event.target.closest('#back-button')) {
+            window.history.back();
+        }
+    });
 
     if (articleUrl) {
         try {
@@ -22,15 +29,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+
+
+
 function displayArticleAndAnalysis(data, articleUrl) {
     const articleContent = document.getElementById('article-content');
     const analysisResult = document.getElementById('analysis-result');
-    const originalArticleLink = document.getElementById('original-article-link');
+
 
     // Display article content
     articleContent.innerHTML = `
-        <h2>Article Content</h2>
+        <div class="button-heading">
+            <button id="back-button">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZXZyb24tbGVmdCI+PHBhdGggZD0ibTE1IDE4LTYtNiA2LTYiLz48L3N2Zz4=" alt="Back">
+            </button>
+            <h2>Article Content</h2>
+        </div>
         <div class="article-text">${data.content}</div>
+        <a href="${articleUrl}" target="_blank" class="original-link">
+                Read the full article here
+        </a>
     `;
 
     // Calculate meter values and colors
@@ -91,15 +109,6 @@ function displayArticleAndAnalysis(data, articleUrl) {
                     <li>Reader impact: ${getReaderImpact(data.polarity, data.subjectivity)}</li>
                 </ul>
             </div>
-        </div>
-    `;
-
-    originalArticleLink.innerHTML = `
-        <div class="original-link-container">
-            <h2>Original Article</h2>
-            <a href="${articleUrl}" target="_blank" class="original-link">
-                Read the full article here
-            </a>
         </div>
     `;
 }
