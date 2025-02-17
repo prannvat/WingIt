@@ -16,7 +16,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: linear-gradient(to right, rgba(210, 36, 36, 0.3), rgba(40, 40, 215, 0.3));
+    background: linear-gradient(to right, rgba(204, 69, 69, 0.3), rgba(70, 70, 196, 0.3));
     height: 100vh;
     display: flex;
     align-items: center;
@@ -32,7 +32,7 @@ body {
 
 .auth-form {
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.45);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -56,7 +56,7 @@ body {
 }
 
 .logo i {
-    font-size: 38px;
+    font-size: 40px;
     position: absolute;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
@@ -83,7 +83,7 @@ body {
 }
 
 h1 {
-    font-size: 34px;
+    font-size: 38px;
     font-weight: 700;
 }
 
@@ -99,7 +99,7 @@ h1 .it {
 
 h2 {
     text-align: center;
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 30px;
     color: var(rgb(138, 132, 132));
 }

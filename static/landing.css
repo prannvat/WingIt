@@ -26,7 +26,7 @@ body {
 /* News Preview Side */
 .news-preview {
     flex: 1;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/news-bg.jpg');
+    background: linear-gradient(rgba(111, 62, 62, 0.575), rgba(68, 57, 110, 0.537)), url('/static/images/news-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -58,18 +58,24 @@ body {
 }
 
 .preview-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(59, 58, 58, 0.363);
     backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transform: translateX(-100%);
-    animation: slideIn 0.5s forwards;
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideIn 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 @keyframes slideIn {
-    to {
+    0% {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+    100% {
         transform: translateX(0);
+        opacity: 1;
     }
 }
 
@@ -92,12 +98,23 @@ body {
 
 .logo i {
     font-size: 32px;
-    color: var(--primary-color);
+    color: #e83737;
 }
 
 .logo h1 {
     font-size: 32px;
     font-weight: 700;
+}
+
+.wing2 {
+    color: #004aad;
+    border-bottom: 2px solid #004aad;
+}
+
+.it2 {
+    color: #e83737;
+    border-bottom: 2px solid #e83737;
+
 }
 
 .auth-container h2 {
@@ -113,7 +130,7 @@ body {
 .auth-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 17.5px;
     width: 100%;
     max-width: 300px;
 }
@@ -138,25 +155,25 @@ body {
 }
 
 .signin-btn {
-    background-color: var(--primary-color);
+    background-color: #004aad;
     color: white;
 }
 
 .signup-btn {
     background-color: white;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: #004aad;
+    border: 2px solid #004aad;
 }
 
 .guest-btn {
-    background-color: #f0f2f5;
-    color: var(--text-color);
+    background-color: rgba(215, 208, 208, 0.767);
+    color: black;
 }
 
 .features {
     margin-top: 60px;
     display: flex;
-    gap: 30px;
+    gap: 60px;
 }
 
 .feature {
@@ -165,9 +182,29 @@ body {
     align-items: center;
     gap: 10px;
     color: var(--secondary-text);
+    position: relative;
 }
 
 .feature i {
-    font-size: 24px;
-    color: var(--primary-color);
+    font-size: 28px;
+    color: #004aad;
+    position: relative;
+}
+
+.feature-text {
+    position: absolute;
+    top: 80%;
+    left: 65%;
+    transform: translateX(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    color: #004aad;
+    font-size: 16px;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.feature:hover .feature-text {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s 0s;
 }
