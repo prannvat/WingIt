@@ -26,7 +26,7 @@ body {
 /* News Preview Side */
 .news-preview {
     flex: 1;
-    background: linear-gradient(rgba(111, 62, 62, 0.575), rgba(68, 57, 110, 0.537)), url('/static/images/news-bg.jpg');
+    background: linear-gradient(rgba(201, 32, 32, 0.493), rgba(37, 14, 131, 0.427)), url('/static/images/news-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -193,6 +193,7 @@ body {
 
 .feature-text {
     position: absolute;
+    font-weight: 650;
     top: 80%;
     left: 65%;
     transform: translateX(-50%, -50%);
