@@ -16,7 +16,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--background-color);
+    background: linear-gradient(to right, rgba(204, 69, 69, 0.3), rgba(70, 70, 196, 0.3));
     height: 100vh;
     display: flex;
     align-items: center;
@@ -27,38 +27,81 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .auth-form {
-    background-color: white;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.45);
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
 .logo {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
+    width: 50px;
+    height: 50px;
 }
 
 .logo i {
-    font-size: 28px;
-    color: var(--primary-color);
+    font-size: 40px;
+    position: absolute;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.logo h1 {
-    font-size: 28px;
+.logo .newspaper {
+    color: #e83737;
+    opacity: 1;
+}
+
+.logo .filter {
+    color: #004aad;
+    opacity: 0;
+    transform: scale(0);
+}
+
+.logo:hover .newspaper {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.logo:hover .filter {
+    opacity: 1;
+    transform: scale(1);
+}
+
+h1 {
+    font-size: 38px;
     font-weight: 700;
+}
+
+h1 .wing {
+    color: #004aad;
+    border-bottom: 2px solid #004aad;
+}
+
+h1 .it {
+    color: #e83737;
+    border-bottom: 2px solid #e83737;
 }
 
 h2 {
     text-align: center;
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 30px;
-    color: var(--text-color);
+    color: var(rgb(138, 132, 132));
 }
 
 .form-group {
@@ -68,9 +111,10 @@ h2 {
 input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid var(--border-color);
+    border: 2px solid #4c74e380;
     border-radius: 25px;
     font-size: 16px;
+    background-color: transparent;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -87,7 +131,7 @@ input::placeholder {
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: var(--primary-color);
+    background-color: #4c74e380;
     color: white;
     border: none;
     border-radius: 25px;
@@ -98,7 +142,7 @@ input::placeholder {
 }
 
 .submit-btn:hover {
-    background-color: #1a91da;
+    background-color: #2956e980;
     transform: translateY(-2px);
 }
 
