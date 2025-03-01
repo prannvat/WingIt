@@ -193,7 +193,7 @@ body {
 
 .feature-text {
     position: absolute;
-    font-weight: 650;
+    font-weight: 550;
     top: 80%;
     left: 65%;
     transform: translateX(-50%, -50%);

@@ -8,37 +8,43 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
+    <!-- Top navigation bar (Logo and Search bar) -->
+    <header class="top-bar">
+        <div class="top-bar-content">
             <div class="logo">
                 <i class="fas fa-newspaper"></i>
                 <h1>Wing It</h1>
             </div>
+            
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Search news...">
                 <button id="search-button">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
-            <nav>
-                <ul>
-                    <li class="active"><i class="fas fa-home"></i> Home</li>
-                    <li><i class="fas fa-globe"></i> World</li>
-                    <li><i class="fas fa-business-time"></i> Business</li>
-                    <li><i class="fas fa-microchip"></i> Technology</li>
-                    <li><i class="fas fa-film"></i> Entertainment</li>
-                </ul>
-            </nav>
-        </aside>
+        </div>
 
-        <!-- Main Content -->
+        <!-- Navigation Bar Below the Search Bar-->
+        <nav class="bottom-nav">
+            <ul>
+                <li class="active"><i class="fas fa-home"></i> Home</li>
+                <li><i class="fas fa-globe"></i> World</li>
+                <li><i class="fas fa-business-time"></i> Business</li>
+                <li><i class="fas fa-microchip"></i> Technology</li>
+                <li><i class="fas fa-film"></i> Entertainment</li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
         <main class="main-content">
             <div class="news-feed" id="news-container">
                 <!-- News articles will be inserted here -->
             </div>
         </main>
     </div>
+
     <script src="/static/script.js"></script>
 </body>
 </html>

@@ -20,6 +20,31 @@ body {
     color: var(--text-color);
 }
 
+/* Top navigation bar (logo and search) */
+.top-bar {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 15px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-image: url("newspaper_im.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Top bar content (logo and search) */
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .container {
     display: flex;
     min-height: 100vh;
@@ -38,11 +63,10 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 30px;
 }
 
 .logo i {
+    margin-right: 10px;
     font-size: 24px;
     color: var(--primary-color);
 }
@@ -52,28 +76,76 @@ body {
     font-weight: 700;
 }
 
+/* Search bar */
 .search-container {
-    position: relative;
-    margin-bottom: 30px;
-}
-
-#search-input {
-    width: 100%;
-    padding: 12px 40px 12px 12px;
-    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 5px;
     border-radius: 20px;
-    font-size: 15px;
+    width: 300px;
 }
 
-#search-button {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+.search-container input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.search-container button {
     background: none;
     border: none;
-    color: var(--primary-color);
     cursor: pointer;
+    color: var(--primary-color);
+    padding: 8px;
+}
+
+/* Navigation Menu Below seach bar */
+.bottom-nav {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px 0;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.bottom-nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.bottom-nav ul li:hover,
+.bottom-nav ul .active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+/* Adjust main content to avoid overlapping */
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 110px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 300px;
+    background-color: var(--sidebar-color);
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid var(--border-color);
+    top: 110px;
 }
 
 nav ul {
@@ -102,16 +174,21 @@ nav ul li i {
     margin-right: 10px;
 }
 
-/* Main Content Styles */
+/* Main content styling */
 .main-content {
-    flex: 1;
-    margin-left: 300px;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
 }
 
 .news-feed {
-    max-width: 600px;
+    max-width: 900px; /* THIS ADJUSTS WIDTH OF INSERTED ARTICLES */
+    width: 100%;
     margin: 0 auto;
+    text-align: left;
 }
 
 .article {
@@ -167,4 +244,36 @@ nav ul li i {
 
 .read-more:hover {
     text-decoration: underline;
+}
+
+/* Responsive Design (if needed) */
+@media (max-width: 768px) {
+    .top-bar-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .search-container {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .bottom-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .bottom-nav ul li {
+        padding: 10px;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: relative;
+        height: auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
 }

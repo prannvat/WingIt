@@ -1,7 +1,7 @@
 const newsContainer = document.getElementById('news-container');
 const searchInput = document.getElementById('search-input');
 const searchButton = document.getElementById('search-button');
-const categoryItems = document.querySelectorAll('nav ul li');
+const categoryItems = document.querySelectorAll('.bottom-nav ul li');
 
 let page = 1;
 const pageSize = 100;
