@@ -168,3 +168,37 @@ nav ul li i {
 .read-more:hover {
     text-decoration: underline;
 }
+
+.article-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.save-article {
+    background: none;
+    border: 1px solid #0066cc;
+    color: #0066cc;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.save-article:hover {
+    background-color: #e6f0ff;
+}
+
+.save-article.saved {
+    background-color: #0066cc;
+    color: white;
+}
+
+.no-saved-articles {
+    text-align: center;
+    margin: 50px auto;
+    color: #666;
+    font-size: 18px;
+    max-width: 500px;
+}

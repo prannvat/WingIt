@@ -7,6 +7,35 @@ let page = 1;
 const pageSize = 100;
 let currentQuery = '';
 let currentCategory = '';
+let viewingSaved = false;
+
+// Function to save and retrieve articles from localStorage
+function getSavedArticles() {
+    const saved = localStorage.getItem('savedArticles');
+    return saved ? JSON.parse(saved) : [];
+}
+
+function saveArticle(article) {
+    const savedArticles = getSavedArticles();
+    // Check if article is already saved
+    if (!savedArticles.some(a => a.url === article.url)) {
+        savedArticles.push(article);
+        localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+        return true;
+    }
+    return false;
+}
+
+function removeArticle(articleUrl) {
+    const savedArticles = getSavedArticles();
+    const filtered = savedArticles.filter(a => a.url !== articleUrl);
+    localStorage.setItem('savedArticles', JSON.stringify(filtered));
+}
+
+function isArticleSaved(articleUrl) {
+    const savedArticles = getSavedArticles();
+    return savedArticles.some(a => a.url === articleUrl);
+}
 
 async function fetchNews(query = '', category = '') {
     const newsApiKey = 'fe5b9311877b43be9a671f831da8dd74';
@@ -46,6 +75,11 @@ function displayNews(articles, append = true) {
     articles.forEach(article => {
         const articleElement = document.createElement('div');
         articleElement.classList.add('article');
+        
+        // Check if article is already saved
+        const isSaved = isArticleSaved(article.url);
+        const saveButtonText = isSaved ? 'Saved' : 'Save';
+        const saveButtonClass = isSaved ? 'saved' : '';
 
         articleElement.innerHTML = `
             ${article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title}">` : ''}
@@ -54,7 +88,10 @@ function displayNews(articles, append = true) {
                 <p class="article-description">${article.description || 'No description available.'}</p>
                 <div class="article-meta">
                     <span>${article.source.name} • ${formatDate(article.publishedAt)}</span>
-                    <a href="#" class="read-more" data-url="${article.url}">Read more</a>
+                    <div class="article-actions">
+                        <a href="#" class="read-more" data-url="${article.url}">Read more</a>
+                        <button class="save-article ${saveButtonClass}" data-url="${article.url}">${saveButtonText}</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -63,6 +100,31 @@ function displayNews(articles, append = true) {
             event.preventDefault();
             const articleUrl = event.target.getAttribute('data-url');
             window.location.href = `/article?url=${encodeURIComponent(articleUrl)}`;
+        });
+        
+        articleElement.querySelector('.save-article').addEventListener('click', (event) => {
+            event.preventDefault();
+            const button = event.target;
+            const articleUrl = button.getAttribute('data-url');
+            
+            if (button.classList.contains('saved')) {
+                // Remove from saved
+                removeArticle(articleUrl);
+                button.textContent = 'Save';
+                button.classList.remove('saved');
+                
+                // If viewing saved articles, remove this article from view
+                if (viewingSaved) {
+                    articleElement.remove();
+                }
+            } else {
+                // Find the article object by URL and save it
+                const articleToSave = articles.find(a => a.url === articleUrl);
+                if (articleToSave && saveArticle(articleToSave)) {
+                    button.textContent = 'Saved';
+                    button.classList.add('saved');
+                }
+            }
         });
 
         newsContainer.appendChild(articleElement);
@@ -75,7 +137,8 @@ function initializeCategories() {
         'world': 'general',
         'business': 'business',
         'technology': 'technology',
-        'entertainment': 'entertainment'
+        'entertainment': 'entertainment',
+        'saved': 'saved' // Add saved category
     };
 
     categoryItems.forEach(item => {
@@ -91,6 +154,15 @@ function initializeCategories() {
 
             const categoryText = item.textContent.trim().toLowerCase();
             console.log('Category text:', categoryText); // Debug log
+            
+            // Handle saved articles category
+            if (categoryText === 'saved') {
+                viewingSaved = true;
+                displaySavedArticles();
+                return;
+            }
+            
+            viewingSaved = false;
             currentCategory = categoryMap[categoryText];
             console.log('Mapped category:', currentCategory); // Debug log
 
@@ -109,6 +181,25 @@ function initializeCategories() {
             observer.observe(sentinel);
         });
     });
+}
+
+// Function to display saved articles
+function displaySavedArticles() {
+    const savedArticles = getSavedArticles();
+    newsContainer.innerHTML = '';
+    
+    if (savedArticles.length === 0) {
+        newsContainer.innerHTML = '<div class="no-saved-articles">No saved articles. Browse news and click "Save" to add articles here.</div>';
+        return;
+    }
+    
+    displayNews(savedArticles, false);
+    
+    // No need for infinite scroll with saved articles
+    const oldSentinel = document.querySelector('.sentinel');
+    if (oldSentinel) {
+        oldSentinel.remove();
+    }
 }
 
 const observer = new IntersectionObserver(entries => {
