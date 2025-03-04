@@ -9,32 +9,34 @@
 </head>
 <body>
     <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo">
-                <i class="fas fa-newspaper"></i>
-                <h1>Wing It</h1>
-            </div>
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Search news...">
-                <button id="search-button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <nav>
-                <ul>
-                    <li class="active"><i class="fas fa-home"></i> Home</li>
-                    <li><i class="fas fa-globe"></i> World</li>
-                    <li><i class="fas fa-chart-line"></i> Business</li>
-                    <li><i class="fas fa-microchip"></i> Technology</li>
-                    <li><i class="fas fa-film"></i> Entertainment</li>
-                    <li><i class="fas fa-bookmark"></i> Saved</li>
-                </ul>
-            </nav>
-        </aside>
-
         <!-- Main Content -->
         <main class="main-content">
+            <div class="main-header">
+                <div class="main-header-content">
+                    <div class="logo">
+                        <i class="fas fa-newspaper"></i>
+                        <h1>Wing It</h1>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search news...">
+                        <button id="search-button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Sidebar moved under search -->
+                <aside class="sidebar">
+                    <nav>
+                        <ul class="category-toggles">
+                            <li class="toggle active" data-category="home"><i class="fas fa-home"></i> Home</li>
+                            <li class="toggle" data-category="world"><i class="fas fa-globe"></i> World</li>
+                            <li class="toggle" data-category="business"><i class="fas fa-chart-line"></i> Business</li>
+                            <li class="toggle" data-category="technology"><i class="fas fa-microchip"></i> Technology</li>
+                            <li class="toggle" data-category="entertainment"><i class="fas fa-film"></i> Entertainment</li>
+                            <li class="toggle" data-category="saved"><i class="fas fa-bookmark"></i> Saved</li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
             <div class="news-feed" id="news-container">
                 <!-- News articles will be inserted here -->
             </div>

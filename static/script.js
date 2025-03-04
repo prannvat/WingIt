@@ -260,3 +260,34 @@ function init() {
 }
 
 init();
+
+// Toggle functionality for category filters
+document.addEventListener('DOMContentLoaded', function() {
+    const toggles = document.querySelectorAll('.category-toggles .toggle');
+    
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            // If the toggle is already active and it's not "home", just return
+            if (this.classList.contains('active') && this.getAttribute('data-category') !== 'home') {
+                return;
+            }
+            
+            // Remove active class from all toggles
+            toggles.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked toggle
+            this.classList.add('active');
+            
+            // Here you would filter news content based on the selected category
+            const category = this.getAttribute('data-category');
+            console.log(`Category selected: ${category}`);
+            
+            // You can add code here to filter the news articles by category
+            // For example:
+            // filterArticlesByCategory(category);
+        });
+    });
+    
+    // Additional code for search functionality, article loading, etc.
+    // would go here...
+});
