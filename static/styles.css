@@ -23,23 +23,17 @@ body {
 .container {
     display: flex;
     min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 300px;
-    background-color: var(--sidebar-color);
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    border-right: 1px solid var(--border-color);
-}
-
+/* Logo Styles - Moved from sidebar */
 .logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    margin-bottom: 30px;
+    min-width: 120px;
 }
 
 .logo i {
@@ -52,9 +46,81 @@ body {
     font-weight: 700;
 }
 
+/* Updated Sidebar Styles */
+.sidebar {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul.category-toggles {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Center the toggles horizontally */
+}
+
+nav ul.category-toggles li.toggle {
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    background-color: #f0f2f5;
+    border: 1px solid transparent;
+}
+
+nav ul.category-toggles li.toggle:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+    color: var(--primary-color);
+}
+
+nav ul.category-toggles li.toggle.active {
+    background-color: rgba(29, 161, 242, 0.2);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+nav ul li i {
+    margin-right: 10px;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 0; /* Remove previous margin */
+}
+
+/* New header section for main content */
+.main-header {
+    padding-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.main-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 20px;
+}
+/* Updated search container for center position */
 .search-container {
+    width: 100%;
     position: relative;
-    margin-bottom: 30px;
+    margin: 0 ;
+    max-width: 500px;
 }
 
 #search-input {
@@ -63,6 +129,14 @@ body {
     border: 1px solid var(--border-color);
     border-radius: 20px;
     font-size: 15px;
+    background-color: #ebeef0;
+}
+
+#search-input:focus {
+    background-color: white;
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 1px var(--primary-color);
 }
 
 #search-button {
@@ -74,44 +148,29 @@ body {
     border: none;
     color: var(--primary-color);
     cursor: pointer;
+    font-size: 16px;
 }
 
-nav ul {
-    list-style: none;
+/* .news-feed {
+    max-width: 600px;
+    margin: 0 auto;
+} */
+.news-feed {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column for mobile */
 }
 
-nav ul li {
-    padding: 12px 15px;
-    margin: 5px 0;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-weight: 500;
-}
-
-nav ul li:hover {
-    background-color: rgba(29, 161, 242, 0.1);
-    color: var(--primary-color);
-}
-
-nav ul li.active {
-    color: var(--primary-color);
-}
-
-nav ul li i {
-    margin-right: 10px;
-}
-
-/* Main Content Styles */
-.main-content {
-    flex: 1;
-    margin-left: 300px;
-    padding: 20px;
+@media (min-width: 768px) {
+    .news-feed {
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Adjust for larger screens */
+    }
 }
 
 .news-feed {
-    max-width: 600px;
-    margin: 0 auto;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .article {
@@ -167,4 +226,38 @@ nav ul li i {
 
 .read-more:hover {
     text-decoration: underline;
+}
+
+.article-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.save-article {
+    background: none;
+    border: 1px solid #0066cc;
+    color: #0066cc;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.save-article:hover {
+    background-color: #e6f0ff;
+}
+
+.save-article.saved {
+    background-color: #0066cc;
+    color: white;
+}
+
+.no-saved-articles {
+    text-align: center;
+    margin: 50px auto;
+    color: #666;
+    font-size: 18px;
+    max-width: 500px;
 }
