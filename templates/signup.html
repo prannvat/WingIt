@@ -35,5 +35,48 @@
             <p class="auth-link">Already have an account? <a href="/signin">Sign In</a></p>
         </div>
     </div>
+
+    <script>
+    document.getElementById("signup-form").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent normal form submission
+        
+        // Get form values
+        const formData = {
+            name: document.querySelector('input[type="text"]').value,
+            email: document.querySelector('input[type="email"]').value,
+            password: document.querySelector('input[type="password"]').value,
+        };
+
+        // Get confirm password to check
+        const confirmPassword = document.querySelectorAll('input[type="password"]')[1].value;
+
+        // Check if passwords match
+        if (formData.password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        try {
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                window.location.href = data.redirect;
+            } else {
+                alert(data.error || 'An error occurred during signup');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during signup');
+        }
+    });
+    </script>
 </body>
 </html>
