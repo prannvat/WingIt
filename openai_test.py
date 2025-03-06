@@ -9,13 +9,14 @@ client = OpenAI(
 
 prompt = """
 The text to be analysed is:
-"Vaccinations sold by Google for new killer virus have brain controlling microchips"
+"Sir Alex Ferguson, the iconic figure of Manchester United, has opened up about the void left in his life post-retirement, more than a decade after he bid farewell to his illustrious career at Old Trafford. His candid thoughts have reignited discussions on Manchester United's trajectory since his departure, a journey some say has been in the shadow of Ferguson's unprecedented success."
 
 The task is:
-"Construct a large list of at least 2 elements, up to 5 elements in size, highlighting misinformation within the text. For each point, provide a summary of up to 10 words of the false information, and a value from 0.0 to 1.0 stating your confidence that this is misinformation (where 1.0 is 100% certainty and 0 is extreme uncertainty). Return this list in JSON format as follows:
+Construct a large list of at least 2 elements, up to 8 elements in size, highlighting the negative or positive tone within the text. For each point, provide a summary of up to 20 words about the tone around the particular point, and a value from -1.0 to 1.0 stating the intensity of the tone, where -1.0 is extreme negative tone, 1.0 is extreme positive tone, 0.0 is completely neutral, and scalar values between -1.0 and 1.0 refer to different levels of intensity.
 
+Return this list in JSON format as follows:
 [
-    {"point": "word word word word", "certainty": <DECIMAL>}
+    {"point": "word word word word", "intensity": <DECIMAL>}
 ]
 """
 
