@@ -26,7 +26,7 @@ body {
 /* News Preview Side */
 .news-preview {
     flex: 1;
-    background: linear-gradient(rgba(201, 32, 32, 0.493), rgba(37, 14, 131, 0.427)), url('/static/images/news-bg.jpg');
+    background: linear-gradient(rgba(181, 47, 47, 0.375), rgba(64, 36, 176, 0.474)), url('/static/images/news-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -107,14 +107,15 @@ body {
 }
 
 .wing2 {
+    font-family: 'Sonsie One', cursive;
     color: #004aad;
     border-bottom: 2px solid #004aad;
 }
 
 .it2 {
+    font-family: 'Sonsie One', cursive;
     color: #e83737;
     border-bottom: 2px solid #e83737;
-
 }
 
 .auth-container h2 {
@@ -193,9 +194,9 @@ body {
 
 .feature-text {
     position: absolute;
-    font-weight: 650;
+    font-weight: 775;
     top: 80%;
-    left: 65%;
+    left: 75%;
     transform: translateX(-50%, -50%);
     opacity: 0;
     visibility: hidden;

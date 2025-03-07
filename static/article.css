@@ -6,9 +6,9 @@
     --text-color: #14171a;
     --secondary-text: #657786;
     --border-color: #e1e8ed;
-    --positive-color: #4CAF50;
+    --positive-color: #004aad;
     --negative-color: #f44336;
-    --neutral-color: #FF9800;
+    --neutral-color: #b97fc8a2;
 }
 
 /* Keep your existing base styles */
@@ -45,7 +45,7 @@ body {
 
 #back-button {
     cursor: pointer;
-    background-color: var(--primary-color);
+    background-color: #004aad;
     color: white;
     border: none;
     padding: 5px;
@@ -67,12 +67,12 @@ body {
 
 /* Hover & Active States */
 #back-button:hover {
-    background-color: #0d8ae6;
+    background-color: #013880;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #back-button:active {
-    background-color: #0b79c1;
+    background-color: #004aad;
     transform: scale(0.98);
 }
 
@@ -162,7 +162,7 @@ body {
 }
 
 .meter-value.objectivity {
-    background: var(--primary-color);
+    background: #004aad;
 }
 
 .meter-scale {
@@ -189,7 +189,7 @@ body {
 }
 
 .analysis-card h3 {
-    color: var(--primary-color);
+    color: #004aad;
     margin-bottom: 15px;
     font-size: 16px;
     font-weight: 600;
@@ -211,7 +211,7 @@ body {
     content: '•';
     position: absolute;
     left: 0;
-    color: var(--primary-color);
+    color: #004aad;
     font-size: 18px;
     line-height: 1;
 }
@@ -219,7 +219,7 @@ body {
 .original-link {
     display: inline-block;
     padding: 12px 24px;
-    background-color: var(--primary-color);
+    background-color: #004aad;
     color: white;
     text-decoration: none;
     border-radius: 10px;
@@ -229,7 +229,7 @@ body {
 }
 
 .original-link:hover {
-    background-color: #1991db;
+    background-color: #013880;
 }
 
 /* Analysis Explanation */
@@ -242,7 +242,7 @@ body {
 }
 
 .analysis-explanation h3 {
-    color: var(--primary-color);
+    color: #004aad;
     margin-bottom: 15px;
     font-size: 16px;
     font-weight: 600;

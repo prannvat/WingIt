@@ -38,7 +38,7 @@ body {
 
 .logo i {
     font-size: 24px;
-    color: var(--primary-color);
+    color: #e83737;
 }
 
 .logo h1 {
@@ -76,14 +76,15 @@ nav ul.category-toggles li.toggle {
 }
 
 nav ul.category-toggles li.toggle:hover {
-    background-color: rgba(29, 161, 242, 0.1);
-    color: var(--primary-color);
+    background-color: #004aad;
+    color: white;        
+    border: 1px solid #004aad;
 }
 
 nav ul.category-toggles li.toggle.active {
-    background-color: rgba(29, 161, 242, 0.2);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background-color: #004aad;
+    color: white;
+    border: 1px solid #004aad;
 }
 
 nav ul li i {
@@ -134,9 +135,9 @@ nav ul li i {
 
 #search-input:focus {
     background-color: white;
-    border-color: var(--primary-color);
+    border-color: #004aad;
     outline: none;
-    box-shadow: 0 0 0 1px var(--primary-color);
+    box-shadow: 0 0 0 1px #004aad;
 }
 
 #search-button {
@@ -146,7 +147,7 @@ nav ul li i {
     transform: translateY(-50%);
     background: none;
     border: none;
-    color: var(--primary-color);
+    color: #004aad;
     cursor: pointer;
     font-size: 16px;
 }
@@ -219,7 +220,7 @@ nav ul li i {
 }
 
 .read-more {
-    color: var(--primary-color);
+    color: #004aad;
     text-decoration: none;
     font-weight: 500;
 }
@@ -236,8 +237,8 @@ nav ul li i {
 
 .save-article {
     background: none;
-    border: 1px solid #0066cc;
-    color: #0066cc;
+    border: 1px solid #004aad;
+    color: #004aad;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
@@ -250,7 +251,7 @@ nav ul li i {
 }
 
 .save-article.saved {
-    background-color: #0066cc;
+    background-color: #004aad;
     color: white;
 }
 
@@ -261,3 +262,16 @@ nav ul li i {
     font-size: 18px;
     max-width: 500px;
 }
+
+.wing3 {
+    font-family: 'Sonsie One', cursive;
+    color: #004aad;
+    border-bottom: 2px solid #004aad;
+}
+
+.it3 {
+    font-family: 'Sonsie One', cursive;
+    color: #e83737;
+    border-bottom: 2px solid #e83737;
+}
+

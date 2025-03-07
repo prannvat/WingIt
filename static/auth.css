@@ -88,11 +88,13 @@ h1 {
 }
 
 h1 .wing {
+    font-family: 'Sonsie One', cursive;
     color: #004aad;
     border-bottom: 2px solid #004aad;
 }
 
 h1 .it {
+    font-family: 'Sonsie One', cursive;
     color: #e83737;
     border-bottom: 2px solid #e83737;
 }
