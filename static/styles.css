@@ -31,9 +31,9 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
-    min-width: 120px;
+    position: absolute;
+    left: 20px;
 }
 
 .logo i {
@@ -108,20 +108,76 @@ nav ul li i {
     gap: 30px;
 }
 
+
+/* Logout Button Styling */
+.logout-container {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#logout-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #e83737;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+#logout-button i {
+    margin-right: 5px;
+}
+
+#logout-button:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .main-header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .logo {
+        position: relative;
+        left: 0;
+        justify-content: center;
+    }
+
+    .logout-container {
+        position: relative;
+        right: 0;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-container {
+        margin-top: 10px;
+    }
+}
+
+
+
 .main-header-content {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-left: 20px;
-    padding-right: 20px;
-    gap: 20px;
+    justify-content: center;
+    position: relative;
 }
+
 /* Updated search container for center position */
 .search-container {
+    max-width: 500px;
     width: 100%;
     position: relative;
-    margin: 0 ;
-    max-width: 500px;
+    margin: 0 auto;
 }
 
 #search-input {
