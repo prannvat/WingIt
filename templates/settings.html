@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing It</title>
+    <link rel="stylesheet" href="/static/settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="midbar padding"></div>
+        <div class="midbar">
+            <div id="settings">
+                <div class="setting_select" id="custom_parent" onclick="openSetting(event, 'custom_child')">
+                    Customise Feed
+                </div>
+                <div class="setting_select" id="password_parent" onclick="openSetting(event, 'password_child')">
+                    Change Password
+                </div>
+            </div>
+        </div>
+        <div class="midbar child" id="placeholder"></div>
+        <div class="midbar child" id="custom_child">
+	<form id="category_settings"> 
+        <div>
+            world
+            <input type="checkbox"  class="category_toggle" id="world_toggle" value=0>
+        </div>
+        <div class="category_toggle">
+            business
+            <input type="checkbox"  class="category_toggle" id="business_toggle" value=0>
+        </div>
+        <div class="category_toggle">
+            technology
+            <input type="checkbox"  class="category_toggle" id="technology_toggle" value=0>
+        </div>
+        <div class="category_toggle">
+            entertainment
+            <input type="checkbox"  class="category_toggle" id="entertainment_toggle" value=0>
+        </div>
+        <button type="submit" class="submit_button">
+            Save Categories
+        </button>
+    </form>
+        </div>
+        <div class="midbar child" id="password_child">
+            
+        </div>
+        <div class="midbar padding"></div>
+    </div>
+    <script src="/static/settings.js"></script>
+</body>

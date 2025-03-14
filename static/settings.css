@@ -1,0 +1,89 @@
+
+:root {
+    --primary-color: #1DA1F2;
+    --background-color: #f7f9fa;
+    --midbar-color: #ffffff;
+    --text-color: #14171a;
+    --secondary-text: #657786;
+    --border-color: #e1e8ed;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.midbar {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 34vw;
+    height: 94vh;
+    padding: 0; 
+    color: var(--text-color);
+    background-color: var(--midbar-color);
+    margin: 0px;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    padding: 0px;
+    border-style: none solid none solid;
+    border-color: var(--border-color);
+    border-width: 0.5px;
+    box-shadow:
+        0px 3vh var(--midbar-color),
+        0px -3vh var(--midbar-color);
+}
+
+#settings {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+}
+.padding {
+    background-color: var(--background-color);
+    width: 16vw;
+    box-shadow: none;
+}
+
+.setting_select {
+    display: flex;
+    border-style: solid none solid none;
+    border-color: var(--border-color);
+    border-width: 1px;
+    background-color: var(--midbar-color);
+    width: 100%;
+    height: 10vh;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.setting_select:hover {
+    background-color: rgba(29, 161, 242, 0.3);
+}
+
+.setting_select.active {
+    background-color: var(--background-color);
+}
+
+.child {
+    display: none;
+}
+#placeholder {
+    display: inline;
+}

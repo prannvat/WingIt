@@ -6,12 +6,20 @@ from functools import wraps
 import sqlite3
 import hashlib
 import os
+import json
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # For session management
 
 # Database setup
 def init_db():
+    defaultCategories = {
+        "world": 1,
+        "business": 0,
+        "technology": 0,
+        "entertainment": 0,
+    }
+    defaultCategoriesString = str(json.loads(json.dumps(defaultCategories)))
     conn = sqlite3.connect('users.db')
     c = conn.cursor()
     c.execute('''
@@ -19,10 +27,27 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            categories TEXT DEFAULT "''' + defaultCategoriesString + '''" 
         )
     ''')
     conn.commit()
+    #adding guest to database for testing custom feed, remove when merging with 
+    #working signin
+    name = 'guest'
+    email = 'guest@guest.com'
+    password = 'guest'
+    
+    hashed_password = hashlib.sha256(password.encode()).hexdigest()
+    
+    try:
+        c.execute('INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+                   (name, email, hashed_password))
+        conn.commit()
+        
+    except sqlite3.IntegrityError:
+        pass #IDGAFFFFF
+    #-------------------
     conn.close()
 
 # Initialize database when app starts
@@ -110,6 +135,39 @@ def logout():
 # @login_required
 def news():
     return render_template('index.html')
+
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    #session was being weird so i just did this for ease for now
+    session["user_id"] = "guest"
+    userId = session['user_id']
+    print(request)
+    print(request.headers)
+    if(request.method == "POST"):
+        #this has literally never printed
+        print("here")
+        try:
+            conn = sqlite3.connect('users.db')
+            c = conn.cursor()
+            c.execute("UPDATE users SET categories = ? WHERE name = ?", (json.loads(json.dumps(request.json)), userId)) 
+            conn.commit()
+            conn.close()
+            return jsonify({'success': True})
+        except sqlite3.IntegrityError:
+            return jsonify({'success': False, 'error': ':('})
+
+    if((request.method == "GET") and (request.headers["Accept"] == "application/json")):
+
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        c.execute("SELECT categories FROM users WHERE name = ?", (userId,)) 
+        categories = c.fetchone()
+        conn.close()
+        #could find no other way to make this work, python json seems to really hate js json
+        categories = eval((categories)[0])
+        return jsonify(categories)
+    
+    return render_template('settings.html')
 
 @app.route('/analyze', methods=['POST'])
 def analyze_article():
