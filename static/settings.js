@@ -1,3 +1,4 @@
+//Just simple tabs code
 function openSetting(event, settingChild) {
     let settingParents = document.getElementsByClassName("setting_select")
     let settingChildren = document.getElementsByClassName("child")
@@ -15,8 +16,8 @@ function openSetting(event, settingChild) {
     thisSettingParent.className += " active";
 }
 
+//Gets already set stuff from database and checks the right boxes 
 async function setCheckValues() {
-    let world = document.getElementById("world_toggle");
     let business = document.getElementById("business_toggle");
     let technology = document.getElementById("technology_toggle");
     let entertainment = document.getElementById("entertainment_toggle");
@@ -31,31 +32,22 @@ async function setCheckValues() {
             }
         });
         const data = await response.json();
-        world.value = data.world;
-        business.value = data.business;
-        technology.value = data.technology;
-        entertainment.value = data.entertainment;
+        business.checked = data.business;
+        technology.checked = data.technology;
+        entertainment.checked = data.entertainment;
     }
     catch (error) {
         alert("An error occured fetching previous settings " + error);
     }
-    for(i = 0; i < toggles.length; i++) {
-        if(toggles[i].value == 1) {
-            toggles[i].checked = true;
-        }
-        else {
-            toggles[i].checked = false;
-        }
-    }
 }
 
-
+//Comment seems a bit redundant here 
 async function submitChoices(event) {
+    event.preventDefault();
     const formData = {
-        world: document.getElementById("world_toggle").value,
-        business: document.getElementById("business_toggle").value,
-        technology: document.getElementById("technology_toggle").value,
-        entertainment: document.getElementById("entertainment_toggle").value,
+        business: document.getElementById("business_toggle").checked,
+        technology: document.getElementById("technology_toggle").checked,
+        entertainment: document.getElementById("entertainment_toggle").checked,
     };
     try {
         const response = await fetch("/settings", {
@@ -69,15 +61,15 @@ async function submitChoices(event) {
         const data = await response.json();
         
         if(data.success) {
-            alert("Changed settings successful")
         } else {
-            alert("An error occured changing settings");
+            alert("An error occured changing settings: " + data.error);
         }
     } catch(error) {
-        alert("An error occured changing settings: " + data.error);
+        alert("An error occured changing settings: " + error);
     }
 
 }
 
+//Attaching functions to correct events
 document.addEventListener("DOMContentLoaded", setCheckValues);
 document.getElementById("category_settings").addEventListener("submit", submitChoices);

@@ -115,6 +115,7 @@ nav ul li i {
     padding-right: 20px;
     gap: 20px;
 }
+
 /* Updated search container for center position */
 .search-container {
     width: 100%;
@@ -260,4 +261,29 @@ nav ul li i {
     color: #666;
     font-size: 18px;
     max-width: 500px;
+}
+
+#settings {
+    transition: all 0.2s;
+    display: flex;
+    font-size: 24.5px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24.5px;
+    color: var(--text-color);
+    width: 24.5px;
+    height: 24.5px;
+    margin: 10px;
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+#settings:hover {
+    color: var(--primary-color);
+}
+
+#search-container-container {
+    display: flex;
+    flex-direction: row;
 }

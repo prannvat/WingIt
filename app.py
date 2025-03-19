@@ -14,14 +14,16 @@ app.secret_key = os.urandom(24)  # For session management
 # Database setup
 def init_db():
     defaultCategories = {
-        "world": 1,
-        "business": 0,
-        "technology": 0,
-        "entertainment": 0,
+        "business": True,
+        "technology": True,
+        "entertainment": True,
     }
+    #Indefensible but it workks
     defaultCategoriesString = str(json.loads(json.dumps(defaultCategories)))
     conn = sqlite3.connect('users.db')
     c = conn.cursor()
+    #technically shouldve used binding here but it wasnt behaving and this should never be
+    #exposed to the user anyway. if you can get binding to work then thumbs up
     c.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,8 +34,7 @@ def init_db():
         )
     ''')
     conn.commit()
-    #adding guest to database for testing custom feed, remove when merging with 
-    #working signin
+    #adding guest to database for testing 
     name = 'guest'
     email = 'guest@guest.com'
     password = 'guest'
@@ -124,6 +125,7 @@ def signup():
 @app.route('/guest')
 def guest_access():
     session['guest'] = True
+    session["user_id"] = "guest"
     return redirect(url_for('news'))
 
 @app.route('/logout')
@@ -131,25 +133,35 @@ def logout():
     session.clear()
     return redirect(url_for('landing'))
 
-@app.route('/news')
-# @login_required
+@app.route('/news', methods=['GET'])
+@login_required
 def news():
+    #hopefully this never sees the light of github but if it does im sorry good luck
+    #session["user_id"] = "guest"
+    userId = session['user_id']
+    if((request.method == "GET") and (request.headers["Accept"] == "application/json")):
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        c.execute("SELECT categories FROM users WHERE name = ?", (userId,)) 
+        categories = c.fetchone()
+        conn.close()
+        #could find no other way to make this work, python json seems to really hate js json
+        categories = eval((categories)[0])
+        return jsonify(categories)
+
     return render_template('index.html')
 
 @app.route('/settings', methods=['GET', 'POST'])
+@login_required
 def settings():
-    #session was being weird so i just did this for ease for now
-    session["user_id"] = "guest"
     userId = session['user_id']
-    print(request)
-    print(request.headers)
     if(request.method == "POST"):
-        #this has literally never printed
-        print("here")
+        if(userId == "guest"):
+            return jsonify({'success': False, 'error': 'Guest account cannot save custom settings!'})
         try:
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
-            c.execute("UPDATE users SET categories = ? WHERE name = ?", (json.loads(json.dumps(request.json)), userId)) 
+            c.execute("UPDATE users SET categories = ? WHERE name = ?", (str(json.loads(json.dumps(request.json))), userId)) 
             conn.commit()
             conn.close()
             return jsonify({'success': True})

@@ -138,7 +138,8 @@ function initializeCategories() {
         'business': 'business',
         'technology': 'technology',
         'entertainment': 'entertainment',
-        'saved': 'saved' // Add saved category
+        'custom': 'custom', // Added category for custom  
+        'saved': 'saved', // Add saved category
     };
 
     categoryItems.forEach(item => {
@@ -163,10 +164,59 @@ function initializeCategories() {
             }
             
             viewingSaved = false;
-            currentCategory = categoryMap[categoryText];
-            console.log('Mapped category:', currentCategory); // Debug log
 
-            const articles = await fetchNews('', currentCategory);
+            //Not going to take part in the gaslighting that js is a real language
+            //also wanted to reassign articles 21 lines down (it works liberal)
+            //Realistically JS is so abstracted I doubt this not being const really matters	
+            let articles = [];
+            if (categoryText === 'custom') {
+
+                let categories = await getCustomCategories();
+                let categoryKeysStrings = Object.keys(categories);
+                let currentCategories = [];
+
+                //Get all true categories
+                for(let i = 0; i < categoryKeysStrings.length; i++) {
+                    category = categoryKeysStrings[i];
+                    if(categories[category]) {
+                        currentCategories.push(category);
+                    }
+                }
+
+                //Grab all articles
+                let articlesByCategory = [];
+                for(let i = 0; i < currentCategories.length; i++) {
+                    category = currentCategories[i];
+                    category = categoryMap[category];
+                    articlesByCategory.push(await fetchNews('', category));
+                }
+
+                //Get the length of the longest collection of articles
+                let longestCategory = 0;
+                for(let i = 0; i < articlesByCategory.length; i++) {
+                    if(articlesByCategory[i].length > longestCategory) {
+                        longestCategory = articlesByCategory[i].length
+                    }
+                }
+
+                //Then add them alternating to the feed so theres some variance in subject
+                for(let i = 0; i < longestCategory; i++) {
+                    for(let j = 0; j < articlesByCategory.length; j++) {
+                        try {
+                            if(typeof(articlesByCategory[j][i]) !== "undefined") {
+                                articles.push(articlesByCategory[j][i]);
+                                console.log("pushed")
+                            }
+                        } catch {/*This is expected to fail often*/}
+                    }
+                }
+            } else {
+                //This is just the old code for most cases
+                currentCategory = categoryMap[categoryText];
+                console.log('Mapped category:', currentCategory); // Debug log
+
+                articles = articles.concat(await fetchNews('', currentCategory));
+            }
             displayNews(articles, false);
 
             // Remove old sentinel if it exists
@@ -201,6 +251,31 @@ function displaySavedArticles() {
         oldSentinel.remove();
     }
 }
+
+async function getCustomCategories() {
+    let output = {
+        business: false,
+        technology: false,
+        entertainment: false,
+    }
+    try {
+        const response = await fetch('/news', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+        const data = await response.json();
+        output.business = data.business;
+        output.technology = data.technology;
+        output.entertainment = data.entertainment;
+    }
+    catch (error) {
+        alert("An error occured fetching custom settings " + error);
+    }
+    return output;
+}
+
 
 const observer = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) {
@@ -291,3 +366,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Additional code for search functionality, article loading, etc.
     // would go here...
 });
+
+
