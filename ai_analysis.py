@@ -279,17 +279,23 @@ class AnalyserAI():
         return tuples
         
 
+def output(data):
+    for line in data:
+        print(line)
+    print()
+
 
 if __name__ == "__main__":
     ai = AnalyserAI()
 
-    #data = ai.analyse_objectivity(example_subjective)
-    #print(data)
-    #data = ai.analyse_objectivity(example_objective)
-    #print(data)
+    print("OBJECTIVITY = 1.0, SUBJECTIVITY = 0.0")
+    data = ai.analyse_objectivity(example_subjective)
+    output(data)
+    data = ai.analyse_objectivity(example_objective)
+    output(data)
 
-
+    print("POSITIVITY = 1.0, NEGATIVITY = -1.0")
     data = ai.analyse_tone(example_positive)
-    print(data)
+    output(data)
     data = ai.analyse_tone(example_negative)
-    print(data)
+    output(data)
