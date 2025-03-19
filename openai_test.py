@@ -1,13 +1,6 @@
 from openai import OpenAI
 import json
 
-with open("openai_key.txt") as f:
-    API_Key_From_File = f.read()[:-1]
-
-client = OpenAI(
-  api_key=API_Key_From_File
-)
-
 # TEXT NEGATIVE EXAMPLE WRITTEN BY MICROSOFT COPILOT
 # THIS IS PURE TEST DATA, NOT FROM A REAL NEWS ARTICLE
 example_negative = """
@@ -151,135 +144,152 @@ def objectivity_analyse_response_is_valid(response):
     # After this, the structure is validated and can be used safely
     return True, data
 
+class AnalyserAI():
+    def __init__(self):
+        with open("openai_key.txt") as f:
+            API_KEY_FROM_FILE = f.read()[:-1]
 
-def objectivity_analyse(text):
-    # RETURNS EITHER:
-    #     None - If the AI failed to provide a valid response
-    #     A list of:
-    #       (point, score)
-    #       where point is a string, score is a decimal in the range 0.0 to 1.0 with:
-    #          0.0: Extremely subjective
-    #          0.5: A balance between the two
-    #          1.0: Extremely objective
-
-    prompt = (
-    """
-    The task is:
-    Analyse text stated below, by constructing a large list of at least 2 elements, up to 8 elements in size, highlighting the objectivity or subjectivity within parts of the text. For each point, provide a summary of up to 20 words about the objectivity / subjectivity around the particular point, and a score from 0.0 to 1.0 stating the scale of objectivity, where 0.0 is extremely subjective, 1.0 is extremely objective, 0.5 is a balance of the two, and scalar values between 0.0 and 1.0 refer to different levels of objectivity / subjectivity.
-
-    Return this list in JSON format as follows:
-    [
-        {"point": "word word word word", "score": <DECIMAL>}
-    ]
-
-    The text to be analysed is: """
-    + text)
-    
-    history = []
-    history += [{"role": "system", "content": prompt}]
-    
-    valid_response = False
-    message_count = 0
-    
-    while (not valid_response) and (message_count < 5):
-        completion = client.chat.completions.create(
-          model="gpt-4o-mini",
-          store=True,
-          messages=history
+        self._client = OpenAI(
+            api_key=API_KEY_FROM_FILE
         )
-        response = completion.choices[0].message.content
+
+
+    def analyse_objectivity(self, text):
+        # RETURNS EITHER:
+        #     None - If the AI failed to provide a valid response
+        #     A list of:
+        #       (point, score)
+        #       where point is a string, score is a decimal in the range 0.0 to 1.0 with:
+        #          0.0: Extremely subjective
+        #          0.5: A balance between the two
+        #          1.0: Extremely objective
+
+        prompt = (
+        """
+        The task is:
+        Analyse text stated below, by constructing a large list of at least 2 elements, up to 8 elements in size, highlighting the objectivity or subjectivity within parts of the text. For each point, provide a summary of up to 20 words about the objectivity / subjectivity around the particular point, and a score from 0.0 to 1.0 stating the scale of objectivity, where 0.0 is extremely subjective, 1.0 is extremely objective, 0.5 is a balance of the two, and scalar values between 0.0 and 1.0 refer to different levels of objectivity / subjectivity.
+
+        Return this list in JSON format as follows:
+        [
+            {"point": "word word word word", "score": <DECIMAL>}
+        ]
+
+        The text to be analysed is: """
+        + text)
         
-        # Check that the response from the AI is valid
-        valid_response, data = objectivity_analyse_response_is_valid(response)
+        history = []
+        history += [{"role": "system", "content": prompt}]
         
-        history += [{"role":"assistant", "content":response}]
+        valid_response = False
+        message_count = 0
+        
+        while (not valid_response) and (message_count < 5):
+            completion = self._client.chat.completions.create(
+            model="gpt-4o-mini",
+            store=True,
+            messages=history
+            )
+            response = completion.choices[0].message.content
+            
+            # Check that the response from the AI is valid
+            valid_response, data = objectivity_analyse_response_is_valid(response)
+            
+            history += [{"role":"assistant", "content":response}]
+            if not valid_response:
+                history += [{"role":"system", "content":data}]
+            
+            message_count += 1
+            
+        # Here, 'data' is a redundant error message string
+        # 'history' can be used for further checking
         if not valid_response:
-            history += [{"role":"system", "content":data}]
+            return None
+
+        # Here, 'data' is a list containing dictionaries of valid data
+
+        tuples = []
+        for element in data:
+            point = element["point"]
+            score = element["score"]
+            tuples += [(point, score)]
+
+        return tuples
         
-        message_count += 1
+    def analyse_tone(self, text):
+        # RETURNS EITHER:
+        #     None - If the AI failed to provide a valid response
+        #     A list of:
+        #       (point, intensity)
+        #       where point is a string, intensity is a decimal in the range -1.0 to 1.0 with:
+        #         -1.0: Extreme negative
+        #         -0.5: Negative
+        #          0.0: Neutral
+        #          0.5: Positive
+        #          1.0: Extreme Positive
+
+        prompt = (
+        """
+        The task is:
+        Analyse text stated below, by constructing a large list of at least 2 elements, up to 8 elements in size, highlighting the negative or positive tone within the text. For each point, provide a summary of up to 20 words about the tone around the particular point, and a value from -1.0 to 1.0 stating the intensity of the tone, where -1.0 is extreme negative tone, 1.0 is extreme positive tone, 0.0 is completely neutral, and scalar values between -1.0 and 1.0 refer to different levels of intensity.
+
+        Return this list in JSON format as follows:
+        [
+            {"point": "word word word word", "intensity": <DECIMAL>}
+        ]
+
+        The text to be analysed is: """
+        + text)
         
-    # Here, 'data' is a redundant error message string
-    # 'history' can be used for further checking
-    if not valid_response:
-        return None
-
-    # Here, 'data' is a list containing dictionaries of valid data
-
-    tuples = []
-    for element in data:
-        point = element["point"]
-        score = element["score"]
-        tuples += [(point, score)]
-
-    return tuples
-    
-
-def tone_analyse(text):
-    # RETURNS EITHER:
-    #     None - If the AI failed to provide a valid response
-    #     A list of:
-    #       (point, intensity)
-    #       where point is a string, intensity is a decimal in the range -1.0 to 1.0 with:
-    #         -1.0: Extreme negative
-    #         -0.5: Negative
-    #          0.0: Neutral
-    #          0.5: Positive
-    #          1.0: Extreme Positive
-
-    prompt = (
-    """
-    The task is:
-    Analyse text stated below, by constructing a large list of at least 2 elements, up to 8 elements in size, highlighting the negative or positive tone within the text. For each point, provide a summary of up to 20 words about the tone around the particular point, and a value from -1.0 to 1.0 stating the intensity of the tone, where -1.0 is extreme negative tone, 1.0 is extreme positive tone, 0.0 is completely neutral, and scalar values between -1.0 and 1.0 refer to different levels of intensity.
-
-    Return this list in JSON format as follows:
-    [
-        {"point": "word word word word", "intensity": <DECIMAL>}
-    ]
-
-    The text to be analysed is: """
-    + text)
-    
-    history = []
-    history += [{"role": "system", "content": prompt}]
-    
-    valid_response = False
-    message_count = 0
-    
-    while (not valid_response) and (message_count < 5):
-        completion = client.chat.completions.create(
-          model="gpt-4o-mini",
-          store=True,
-          messages=history
-        )
-        response = completion.choices[0].message.content
+        history = []
+        history += [{"role": "system", "content": prompt}]
         
-        # Check that the response from the AI is valid
-        valid_response, data = tone_analyse_response_is_valid(response)
+        valid_response = False
+        message_count = 0
         
-        history += [{"role":"assistant", "content":response}]
+        while (not valid_response) and (message_count < 5):
+            completion = self._client.chat.completions.create(
+            model="gpt-4o-mini",
+            store=True,
+            messages=history
+            )
+            response = completion.choices[0].message.content
+            
+            # Check that the response from the AI is valid
+            valid_response, data = tone_analyse_response_is_valid(response)
+            
+            history += [{"role":"assistant", "content":response}]
+            if not valid_response:
+                history += [{"role":"system", "content":data}]
+            
+            message_count += 1
+            
+        # Here, 'data' is a redundant error message string
+        # 'history' can be used for further checking
         if not valid_response:
-            history += [{"role":"system", "content":data}]
+            return None
+
+        # Here, 'data' is a list containing dictionaries of valid data
+
+        tuples = []
+        for element in data:
+            point = element["point"]
+            intensity = element["intensity"]
+            tuples += [(point, intensity)]
+
+        return tuples
         
-        message_count += 1
-        
-    # Here, 'data' is a redundant error message string
-    # 'history' can be used for further checking
-    if not valid_response:
-        return None
 
-    # Here, 'data' is a list containing dictionaries of valid data
-
-    tuples = []
-    for element in data:
-        point = element["point"]
-        intensity = element["intensity"]
-        tuples += [(point, intensity)]
-
-    return tuples
-    
 
 if __name__ == "__main__":
-    data = objectivity_analyse(example_subjective)
+    ai = AnalyserAI()
+
+    #data = ai.analyse_objectivity(example_subjective)
+    #print(data)
+    #data = ai.analyse_objectivity(example_objective)
+    #print(data)
+
+
+    data = ai.analyse_tone(example_positive)
     print(data)
-    data = objectivity_analyse(example_objective)
+    data = ai.analyse_tone(example_negative)
     print(data)
