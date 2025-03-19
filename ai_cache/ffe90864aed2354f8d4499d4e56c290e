@@ -1,0 +1,36 @@
+```json
+[
+    {
+        "point": "Greenwood Academy is a medium-sized secondary school located in the suburbs.",
+        "score": 1.0
+    },
+    {
+        "point": "Serving approximately 800 students aged 11 to 16.",
+        "score": 1.0
+    },
+    {
+        "point": "The school operates on a standard UK schedule.",
+        "score": 1.0
+    },
+    {
+        "point": "Offers a curriculum that includes core subjects and electives.",
+        "score": 1.0
+    },
+    {
+        "point": "Facilities include library, science labs, gymnasium, and outdoor field.",
+        "score": 1.0
+    },
+    {
+        "point": "Teachers are experienced and follow a structured approach to lesson delivery.",
+        "score": 0.8
+    },
+    {
+        "point": "The school provides extracurricular activities, including a weekly debate club and girls' football team.",
+        "score": 1.0
+    },
+    {
+        "point": "Structured approach to lesson delivery indicates good teaching practices.",
+        "score": 0.6
+    }
+]
+```

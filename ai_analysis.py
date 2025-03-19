@@ -1,5 +1,7 @@
 from openai import OpenAI
+from hashlib import md5
 import json
+from os import listdir
 
 # TEXT NEGATIVE EXAMPLE WRITTEN BY MICROSOFT COPILOT
 # THIS IS PURE TEST DATA, NOT FROM A REAL NEWS ARTICLE
@@ -144,6 +146,27 @@ def objectivity_analyse_response_is_valid(response):
     # After this, the structure is validated and can be used safely
     return True, data
 
+def get_key(text, mode):
+    combined = mode + "#####" + text
+    hashed = md5(combined.encode()).hexdigest()
+    return hashed
+
+def from_cache(text, mode):
+    key = get_key(text, mode)
+    elements = listdir("ai_cache")
+    if key not in elements:
+        return None
+    file = "ai_cache//" + key
+    with open(file) as f:
+        data = f.read()
+    return data
+
+def to_cache(text, mode, response):
+    key = get_key(text, mode)
+    file = "ai_cache//" + key
+    with open(file, "w") as f:
+        f.write(response)
+
 class AnalyserAI():
     def __init__(self):
         with open("openai_key.txt") as f:
@@ -176,13 +199,16 @@ class AnalyserAI():
 
         The text to be analysed is: """
         + text)
+
+        valid_response = False
+        cached = from_cache(text, "objectivity")
+        if cached is not None:
+            response = cached
+            valid_response, data = objectivity_analyse_response_is_valid(response)
         
+        message_count = 0
         history = []
         history += [{"role": "system", "content": prompt}]
-        
-        valid_response = False
-        message_count = 0
-        
         while (not valid_response) and (message_count < 5):
             completion = self._client.chat.completions.create(
             model="gpt-4o-mini",
@@ -204,6 +230,9 @@ class AnalyserAI():
         # 'history' can be used for further checking
         if not valid_response:
             return None
+
+        if cached is None:
+            to_cache(text, "objectivity", response)
 
         # Here, 'data' is a list containing dictionaries of valid data
 
@@ -239,13 +268,17 @@ class AnalyserAI():
 
         The text to be analysed is: """
         + text)
+
+
+        valid_response = False
+        cached = from_cache(text, "tone")
+        if cached is not None:
+            response = cached
+            valid_response, data = tone_analyse_response_is_valid(response)
         
+        message_count = 0
         history = []
         history += [{"role": "system", "content": prompt}]
-        
-        valid_response = False
-        message_count = 0
-        
         while (not valid_response) and (message_count < 5):
             completion = self._client.chat.completions.create(
             model="gpt-4o-mini",
@@ -267,6 +300,9 @@ class AnalyserAI():
         # 'history' can be used for further checking
         if not valid_response:
             return None
+
+        if cached is None:
+            to_cache(text, "tone", response)
 
         # Here, 'data' is a list containing dictionaries of valid data
 
