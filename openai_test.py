@@ -95,6 +95,17 @@ def tone_analyse_response_is_valid(response):
     
 
 def tone_analyse(text):
+    # RETURNS EITHER:
+    #     None - If the AI failed to provide a valid response
+    #     A list of:
+    #       (point, intensity)
+    #       where point is a string, intensity is a decimal in the range -1.0 to 1.0 with:
+    #         -1.0: Extreme negative
+    #         -0.5: Negative
+    #          0.0: Neutral
+    #          0.5: Positive
+    #          1.0: Extreme Positive
+
     prompt = (
     """
     The task is:
@@ -114,7 +125,7 @@ def tone_analyse(text):
     valid_response = False
     message_count = 0
     
-    while (not valid_response) and (message_count < 3):
+    while (not valid_response) and (message_count < 5):
         completion = client.chat.completions.create(
           model="gpt-4o-mini",
           store=True,
@@ -135,12 +146,18 @@ def tone_analyse(text):
     # 'history' can be used for further checking
     if not valid_response:
         return None
-        
+
     # Here, 'data' is a list containing dictionaries of valid data
+
+    tuples = []
     for element in data:
         point = element["point"]
         intensity = element["intensity"]
-        print(point, intensity)
+        tuples += [(point, intensity)]
+
+    return tuples
     
 
-tone_analyse(example_negative)
+if __name__ == "__main__":
+    data = tone_analyse(example_negative)
+    print(data)
