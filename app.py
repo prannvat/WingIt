@@ -34,7 +34,7 @@ def init_db():
         )
     ''')
     conn.commit()
-    #adding guest to database for testing 
+    #adding guest to database 
     name = 'guest'
     email = 'guest@guest.com'
     password = 'guest'
@@ -136,8 +136,6 @@ def logout():
 @app.route('/news', methods=['GET'])
 @login_required
 def news():
-    #hopefully this never sees the light of github but if it does im sorry good luck
-    #session["user_id"] = "guest"
     userId = session['user_id']
     if((request.method == "GET") and (request.headers["Accept"] == "application/json")):
         conn = sqlite3.connect('users.db')
