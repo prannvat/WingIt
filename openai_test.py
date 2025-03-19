@@ -88,7 +88,7 @@ def tone_analyse_response_is_valid(response):
             
         value = float(value_decimal)
         if (value < -1) or (value > 1):
-            return False, "ERROR: The returned JSON list contained a dictionary which had an intensity which was not in the range from -0.0 to 1.0"
+            return False, "ERROR: The returned JSON list contained a dictionary which had an intensity which was not in the range from -1.0 to 1.0"
             
     # After this, the structure is validated and can be used safely
     return True, data
