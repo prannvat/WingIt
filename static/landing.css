@@ -26,7 +26,7 @@ body {
 /* News Preview Side */
 .news-preview {
     flex: 1;
-    background: linear-gradient(rgba(201, 32, 32, 0.493), rgba(37, 14, 131, 0.427)), url('/static/images/news-bg.jpg');
+    background: linear-gradient(rgba(177, 78, 78, 0.375), rgba(92, 71, 177, 0.474)), url('/static/images/news-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -107,14 +107,15 @@ body {
 }
 
 .wing2 {
+    font-family: 'Sonsie One', cursive;
     color: #004aad;
     border-bottom: 2px solid #004aad;
 }
 
 .it2 {
+    font-family: 'Sonsie One', cursive;
     color: #e83737;
     border-bottom: 2px solid #e83737;
-
 }
 
 .auth-container h2 {
@@ -173,6 +174,7 @@ body {
 .features {
     margin-top: 60px;
     display: flex;
+    justify-content: center;
     gap: 60px;
 }
 
@@ -180,32 +182,37 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
     gap: 10px;
     color: var(--secondary-text);
-    position: relative;
+    /* Add width to ensure centering */
+    width: 50px;
+    text-align: center;
 }
 
 .feature i {
     font-size: 28px;
     color: #004aad;
-    position: relative;
+    margin-bottom: 5px;
 }
 
 .feature-text {
     position: absolute;
-    font-weight: 650;
-    top: 80%;
-    left: 65%;
-    transform: translateX(-50%, -50%);
+    font-weight: 775;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
     visibility: hidden;
     color: #004aad;
-    font-size: 16px;
-    transition: opacity 0.3s ease, visibility 0s 0.3s;
+    font-size: 14px;
+    line-height: 1.3;
+    width: 100%;
+    margin-top: 8px;
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
 
 .feature:hover .feature-text {
     opacity: 1;
     visibility: visible;
-    transition: opacity 0.3s ease, visibility 0s 0s;
 }

@@ -6,6 +6,7 @@
     <title>NewsBreak - Sign In</title>
     <link rel="stylesheet" href="/static/auth.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sonsie+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="auth-page">
@@ -15,7 +16,7 @@
                     <i class="fas fa-newspaper newspaper"></i>
                     <i class="fa-solid fa-filter filter"></i>
                 </div>
-                <h1><span class="wing">Wing</span> <span class="it">It</span></h1>
+                <h1><span class="wing">Wing </span> <span class="it">It</span></h1>
             </div>
             <h2>Sign In</h2>
             <form id="signin-form">
@@ -30,5 +31,36 @@
             <p class="auth-link">Don't have an account? <a href="/signup">Sign Up</a></p>
         </div>
     </div>
+    <script>
+        document.getElementById("signin-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const formData = { 
+                email: document.querySelector('input[type="email"]').value,
+                password: document.querySelector('input[type="password"]').value,
+            };
+
+            try {
+            const response = await fetch('/signin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            
+            if (data.success) {
+                window.location.href = data.redirect;
+            } else {
+                alert('An error occurred during Sign In');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during Sign In');
+        }
+    });
+    </script>
 </body>
 </html>

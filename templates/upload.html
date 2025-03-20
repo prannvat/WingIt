@@ -6,24 +6,27 @@
     <title>Upload Article</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sonsie+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <!-- Main Content -->
         <main class="main-content">
             <div class="main-header">
                 <div class="main-header-content">
                     <div class="logo">
                         <i class="fas fa-newspaper"></i>
-                        <h1>Wing It</h1>
+                        <h1><span class="wing3">Wing </span><span class="it3">It</span></h1>
                     </div>
                     <div class="search-container">
                         <input type="text" id="search-input" placeholder="Search news...">
                         <button id="search-button"><i class="fas fa-search"></i></button>
                     </div>
+                    <div class="logout-container">
+                        <a href="/logout" id="logout-button">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
                 </div>
-                
-                <!-- Sidebar with navigation tabs -->
                 <aside class="sidebar">
                     <nav>
                         <ul class="category-toggles">
@@ -38,8 +41,6 @@
                     </nav>
                 </aside>
             </div>
-
-            <!-- Upload Form -->
             <div class="upload-container">
                 <h2>Submit Article</h2>
                 {% with messages = get_flashed_messages(with_categories=true) %}

@@ -1,6 +1,6 @@
 /* auth.css */
 :root {
-    --primary-color: #1DA1F2;
+    --primary-color: #004aad;
     --background-color: #f7f9fa;
     --text-color: #14171a;
     --secondary-text: #657786;
@@ -83,16 +83,18 @@ body {
 }
 
 h1 {
-    font-size: 38px;
+    font-size: 32px;
     font-weight: 700;
 }
 
 h1 .wing {
+    font-family: 'Sonsie One', cursive;
     color: #004aad;
     border-bottom: 2px solid #004aad;
 }
 
 h1 .it {
+    font-family: 'Sonsie One', cursive;
     color: #e83737;
     border-bottom: 2px solid #e83737;
 }
@@ -111,7 +113,7 @@ h2 {
 input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #4c74e380;
+    border: 2px solid var(--primary-color);
     border-radius: 25px;
     font-size: 16px;
     background-color: transparent;
@@ -121,7 +123,6 @@ input {
 input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(29, 161, 242, 0.1);
 }
 
 input::placeholder {
@@ -131,7 +132,7 @@ input::placeholder {
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background-color: #4c74e380;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 25px;
@@ -142,7 +143,7 @@ input::placeholder {
 }
 
 .submit-btn:hover {
-    background-color: #2956e980;
+    background-color: #013880;
     transform: translateY(-2px);
 }
 

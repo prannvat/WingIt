@@ -144,14 +144,10 @@ def logout():
 @app.route('/news')
 # @login_required
 def news():
-    category = request.args.get('category')
-    if category == 'saved':
-        # Handle saved articles (could fetch from DB or leave to client-side)
-        pass
-    elif category in ['world', 'business', 'technology', 'entertainment']:
-        # Pass category to template or handle in JS
-        pass
-    return render_template('index.html')
+    category = request.args.get('category', default='')  # Get the category from the query parameter
+    print(f"Navigated to /news with category: {category}")  # Debug log
+    # Pass the category to the template
+    return render_template('index.html', category=category)
 
 @app.route('/analyze', methods=['POST'])
 def analyze_article():
@@ -230,8 +226,6 @@ def get_user_articles(user_id):
     conn.close()
     return [{'url': row[0], 'submitted_at': row[1]} for row in articles]
 
-
-
-
 if __name__ == '__main__':
     app.run(debug=True)
+    

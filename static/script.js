@@ -145,7 +145,6 @@ function initializeCategories() {
         'saved': 'saved'
     };
 
-    // Only initialize if we're on the news page
     if (window.location.pathname === '/news') {
         categoryItems.forEach(item => {
             item.addEventListener('click', async (e) => {
@@ -183,13 +182,10 @@ function initializeCategories() {
             });
         });
     } else if (window.location.pathname === '/upload') {
-        // On upload page, let static links work naturally
         categoryItems.forEach(item => {
             const category = item.getAttribute('data-category');
             item.classList.toggle('active', category === 'upload');
-            // Remove any existing click listeners to avoid interference
             item.removeEventListener('click', item.onclick);
-            // Ensure the <a> tag's href handles navigation
         });
     }
 }
@@ -213,8 +209,6 @@ searchButton.addEventListener('click', async () => {
         categoryItems.forEach(item => item.classList.remove('active'));
         const articles = await fetchNews(query);
         displayNews(articles, false);
-
- $
 
         const oldSentinel = document.querySelector('.sentinel');
         if (oldSentinel) oldSentinel.remove();
