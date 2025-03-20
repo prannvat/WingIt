@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "ominous grey sky looming overhead", "intensity": -0.8},
+    {"point": "monotonous drone of uninterested teachers", "intensity": -0.7},
+    {"point": "students sat slumped in their chairs", "intensity": -0.6},
+    {"point": "playground littered with trash", "intensity": -0.9},
+    {"point": "laughter replaced by complaints and arguments", "intensity": -0.8},
+    {"point": "tasteless, unappetizing mess", "intensity": -0.9},
+    {"point": "long queues added to the frustration", "intensity": -0.5},
+    {"point": "morale was at an all-time low", "intensity": -0.9}
+]
+```

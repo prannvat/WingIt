@@ -1,1 +1,7 @@
+
+# Ignore the virtual environment
 venv/
+
+# Ignore the OpenAI developer account key
+openai_key.txt
+

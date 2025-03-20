@@ -7,3 +7,4 @@ blinker==1.7.0
 textblob==0.17.1
 requests==2.31.0
 beautifulsoup4==4.12.2
+openai==1.64.0
