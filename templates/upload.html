@@ -43,15 +43,7 @@
             </div>
             <div class="upload-container">
                 <h2>Submit Article</h2>
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="alert alert-{{ category }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
+                
                 <form id="upload-form" action="/upload" method="POST">
                     <input type="url" name="article-url" 
                            placeholder="Enter article URL" 
@@ -60,9 +52,10 @@
                            class="url-input">
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
+                <div id="uploaded-article" class="news-feed"></div>
             </div>
         </main>
     </div>
-    <script src="/static/script.js"></script>
+    <script src="/static/upload.js"></script>
 </body>
 </html>

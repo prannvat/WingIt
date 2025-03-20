@@ -181,12 +181,6 @@ function initializeCategories() {
                 observer.observe(sentinel);
             });
         });
-    } else if (window.location.pathname === '/upload') {
-        categoryItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-            item.classList.toggle('active', category === 'upload');
-            item.removeEventListener('click', item.onclick);
-        });
     }
 }
 

@@ -163,11 +163,31 @@ def analyze_article():
         paragraphs = soup.find_all('p')
         article_content = ' '.join(p.get_text() for p in paragraphs)
 
+        # Try to extract the title
+        title = soup.find('title').get_text() if soup.find('title') else 'No title available'
+
+        # Try to extract an image (if available)
+        image = None
+        og_image = soup.find('meta', property='og:image')
+        if og_image and og_image.get('content'):
+            image = og_image['content']
+        else:
+            first_image = soup.find('img')
+            if first_image and first_image.get('src'):
+                image = first_image['src']
+
         # Perform sentiment analysis
         blob = TextBlob(article_content)
         
+        # Return a structured article object similar to News API format
         return jsonify({
+            'title': title,
+            'description': article_content[:200] + '...' if len(article_content) > 200 else article_content,
             'content': article_content,
+            'url': article_url,
+            'urlToImage': image,
+            'source': {'name': soup.find('meta', property='og:site_name')['content'] if soup.find('meta', property='og:site_name') else 'Unknown Source'},
+            'publishedAt': datetime.now().isoformat(),
             'polarity': blob.sentiment.polarity,
             'subjectivity': blob.sentiment.subjectivity
         })
@@ -193,7 +213,7 @@ def upload_page():
 
         if not article_url.startswith(('http://', 'https://')):
             flash('Invalid URL format. Please enter a valid web address.', 'error')
-            return render_template('upload.html', article_url=article_url)  # Stay on upload page with error
+            return render_template('upload.html', article_url=article_url)
 
         try:
             user_id = session.get('user_id')
@@ -209,14 +229,37 @@ def upload_page():
             conn.commit()
             conn.close()
             flash('Article URL submitted successfully!', 'success')
-            return render_template('upload.html', article_url='')  # Stay on upload page with cleared input
-
+            # Return the submitted URL in the response for JavaScript to use
+            return jsonify({'success': True, 'article_url': article_url})
         except Exception as e:
             print(f"Database error: {str(e)}")
             flash(f'Error submitting article: {str(e)}', 'error')
-            return render_template('upload.html', article_url=article_url)  # Stay on upload page with error
+            return jsonify({'success': False, 'error': str(e)}), 500
 
-    return render_template('upload.html', article_url='')  # Initial GET request with empty input
+    return render_template('upload.html', article_url='')
+
+@app.route('/recent_article', methods=['GET'])
+def get_recent_article():
+    try:
+        user_id = session.get('user_id')
+        guest_id = session.get('guest_id', 'anonymous')
+
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        if user_id:
+            c.execute('SELECT url FROM articles WHERE user_id = ? ORDER BY submitted_at DESC LIMIT 1', (user_id,))
+        else:
+            c.execute('SELECT url FROM articles WHERE guest_id = ? ORDER BY submitted_at DESC LIMIT 1', (guest_id,))
+        article = c.fetchone()
+        conn.close()
+
+        if article:
+            return jsonify({'success': True, 'article_url': article[0]})
+        else:
+            return jsonify({'success': False, 'error': 'No articles found'})
+    except Exception as e:
+        print(f"Error fetching recent article: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 def get_user_articles(user_id):
     conn = sqlite3.connect('users.db')
@@ -228,4 +271,3 @@ def get_user_articles(user_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
-    
