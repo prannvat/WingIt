@@ -10,13 +10,12 @@
 </head>
 <body>
     <div class="container">
-        <!-- Main Content -->
         <main class="main-content">
             <div class="main-header">
                 <div class="main-header-content">
                     <div class="logo">
                         <i class="fas fa-newspaper"></i>
-                        <h1><span class="wing3">Wing </span> <span class="it3">It</span></h1>
+                        <h1><span class="wing3">Wing </span><span class="it3">It</span></h1>
                     </div>
                     <div class="search-container">
                         <input type="text" id="search-input" placeholder="Search news...">
@@ -28,27 +27,23 @@
                         </a>
                     </div>
                 </div>
-                
-                <!-- Sidebar moved under search -->
                 <aside class="sidebar">
                     <nav>
                         <ul class="category-toggles">
-                            <li class="toggle active" data-category="home"><i class="fas fa-home"></i> Home</li>
-                            <li class="toggle" data-category="world"><i class="fas fa-globe"></i> World</li>
-                            <li class="toggle" data-category="business"><i class="fas fa-chart-line"></i> Business</li>
-                            <li class="toggle" data-category="technology"><i class="fas fa-microchip"></i> Technology</li>
-                            <li class="toggle" data-category="entertainment"><i class="fas fa-film"></i> Entertainment</li>
-                            <li class="toggle" data-category="saved"><i class="fas fa-bookmark"></i> Saved</li>
+                            <li class="toggle {% if category == '' %}active{% endif %}" data-category="home"><a href="/news"><i class="fas fa-home"></i> Home</a></li>
+                            <li class="toggle {% if category == 'world' %}active{% endif %}" data-category="world"><a href="/news?category=world"><i class="fas fa-globe"></i> World</a></li>
+                            <li class="toggle {% if category == 'business' %}active{% endif %}" data-category="business"><a href="/news?category=business"><i class="fas fa-chart-line"></i> Business</a></li>
+                            <li class="toggle {% if category == 'technology' %}active{% endif %}" data-category="technology"><a href="/news?category=technology"><i class="fas fa-microchip"></i> Technology</a></li>
+                            <li class="toggle {% if category == 'entertainment' %}active{% endif %}" data-category="entertainment"><a href="/news?category=entertainment"><i class="fas fa-film"></i> Entertainment</a></li>
+                            <li class="toggle {% if category == 'upload' %}active{% endif %}" data-category="upload"><a href="/upload"><i class="fas fa-upload"></i> Upload Articles</a></li>
+                            <li class="toggle {% if category == 'saved' %}active{% endif %}" data-category="saved"><a href="/news?category=saved"><i class="fas fa-bookmark"></i> Saved</a></li>
                         </ul>
                     </nav>
                 </aside>
             </div>
-            <div class="news-feed" id="news-container">
-                <!-- News articles will be inserted here -->
-            </div>
+            <div id="news-container" class="news-feed" data-category="{{ category | default('') }}"></div>
         </main>
     </div>
     <script src="/static/script.js"></script>
 </body>
 </html>
-

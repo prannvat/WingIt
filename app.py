@@ -1,5 +1,8 @@
+from curses import flash
+from datetime import datetime
 import json
-from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+import uuid
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session, flash
 from textblob import TextBlob
 import requests
 from bs4 import BeautifulSoup
@@ -9,6 +12,7 @@ import hashlib
 import os
 from ai_analysis import AnalyserAI
 from openai import APIConnectionError
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # For session management
 ai_analyser = AnalyserAI()
@@ -22,6 +26,15 @@ def init_db():
             name TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL
+        )
+    ''')
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS articles (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER,
+            guest_id TEXT,
+            url TEXT NOT NULL,
+            submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
     conn.commit()
@@ -139,6 +152,59 @@ def news():
 #         print(f"Error in analyze_article: {str(e)}")  # Debug log
 #         return jsonify({'error': str(e)}), 500
 
+@app.route('/analyzeUpload', methods=['POST'])
+def analyze_upload():
+    data = request.json
+    article_url = data.get('url', '')
+
+    try:
+        # Fetch the article content
+        response = requests.get(article_url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+        # Get all paragraphs and join them
+        paragraphs = soup.find_all('p')
+        article_content = ' '.join(p.get_text() for p in paragraphs)
+
+        # Try to extract the title
+        title = soup.find('title').get_text() if soup.find('title') else 'No title available'
+
+        # Try to extract an image (if available)
+        image = None
+        og_image = soup.find('meta', property='og:image')
+        if og_image and og_image.get('content'):
+            image = og_image['content']
+        else:
+            first_image = soup.find('img')
+            if first_image and first_image.get('src'):
+                image = first_image['src']
+                
+        try:
+            objectivity_results = ai_analyser.analyse_objectivity(article_content)
+            tone_results = ai_analyser.analyse_tone(article_content)
+        except APIConnectionError as e:
+            objectivity_results = [("Error", 0)]
+            tone_results = [("Error", 0)]
+        # Perform sentiment analysis
+        blob = TextBlob(article_content)
+        
+        # Return a structured article object similar to News API format
+        return jsonify({
+            'title': title,
+            'description': article_content[:200] + '...' if len(article_content) > 200 else article_content,
+            'content': article_content,
+            'url': article_url,
+            'urlToImage': image,
+            'source': {'name': soup.find('meta', property='og:site_name')['content'] if soup.find('meta', property='og:site_name') else 'Unknown Source'},
+            'publishedAt': datetime.now().isoformat(),
+            'polarity': blob.sentiment.polarity,
+            'subjectivity': blob.sentiment.subjectivity
+        })
+    except Exception as e:
+        print(f"Error in analyze_article: {str(e)}")  # Debug log
+        return jsonify({'error': str(e)}), 500
+
+    
 @app.route('/analyze', methods=['POST'])
 def analyze_article():
     data = request.json
@@ -179,8 +245,80 @@ def analyze_article():
 def article():
     return render_template('article.html')
 
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_page():
+    if 'user_id' not in session and 'guest_id' not in session:
+        session['guest_id'] = str(uuid.uuid4())
+        session['guest'] = True
+        print(f"Created new guest_id: {session['guest_id']}")
+
+    if request.method == 'POST':
+        article_url = request.form.get('article-url')
+        print(f"Received URL: {article_url}")
+
+        if not article_url.startswith(('http://', 'https://')):
+            flash('Invalid URL format. Please enter a valid web address.', 'error')
+            return render_template('upload.html', article_url=article_url)
+
+        try:
+            user_id = session.get('user_id')
+            guest_id = session.get('guest_id', 'anonymous')
+            print(f"User ID: {user_id}, Guest ID: {guest_id}")
+
+            conn = sqlite3.connect('users.db')
+            c = conn.cursor()
+            if user_id:
+                c.execute('INSERT INTO articles (user_id, url) VALUES (?, ?)', (user_id, article_url))
+            else:
+                c.execute('INSERT INTO articles (url, guest_id) VALUES (?, ?)', (article_url, guest_id))
+            conn.commit()
+            conn.close()
+            flash('Article URL submitted successfully!', 'success')
+            # Return the submitted URL in the response for JavaScript to use
+            return jsonify({'success': True, 'article_url': article_url})
+        except Exception as e:
+            print(f"Database error: {str(e)}")
+            flash(f'Error submitting article: {str(e)}', 'error')
+            return jsonify({'success': False, 'error': str(e)}), 500
+
+    return render_template('upload.html', article_url='')
+
+@app.route('/recent_article', methods=['GET'])
+def get_recent_article():
+    try:
+        user_id = session.get('user_id')
+        guest_id = session.get('guest_id', 'anonymous')
+
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        if user_id:
+            c.execute('SELECT url FROM articles WHERE user_id = ? ORDER BY submitted_at DESC LIMIT 1', (user_id,))
+        else:
+            c.execute('SELECT url FROM articles WHERE guest_id = ? ORDER BY submitted_at DESC LIMIT 1', (guest_id,))
+        article = c.fetchone()
+        conn.close()
+
+        if article:
+            return jsonify({'success': True, 'article_url': article[0]})
+        else:
+            return jsonify({'success': False, 'error': 'No articles found'})
+    except Exception as e:
+        print(f"Error fetching recent article: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+def get_user_articles(user_id):
+    conn = sqlite3.connect('users.db')
+    c = conn.cursor()
+    c.execute('SELECT url, submitted_at FROM articles WHERE user_id = ?', (user_id,))
+    articles = c.fetchall()
+    conn.close()
+    return [{'url': row[0], 'submitted_at': row[1]} for row in articles]
+
 if __name__ == '__main__':
     app.run(debug=True)
 
 
     
+
+

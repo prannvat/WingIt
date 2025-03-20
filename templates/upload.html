@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Article</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sonsie+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <main class="main-content">
+            <div class="main-header">
+                <div class="main-header-content">
+                    <div class="logo">
+                        <i class="fas fa-newspaper"></i>
+                        <h1><span class="wing3">Wing </span><span class="it3">It</span></h1>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search news...">
+                        <button id="search-button"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="logout-container">
+                        <a href="/logout" id="logout-button">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
+                </div>
+                <aside class="sidebar">
+                    <nav>
+                        <ul class="category-toggles">
+                            <li class="toggle" data-category="home"><a href="/news"><i class="fas fa-home"></i> Home</a></li>
+                            <li class="toggle" data-category="world"><a href="/news?category=world"><i class="fas fa-globe"></i> World</a></li>
+                            <li class="toggle" data-category="business"><a href="/news?category=business"><i class="fas fa-chart-line"></i> Business</a></li>
+                            <li class="toggle" data-category="technology"><a href="/news?category=technology"><i class="fas fa-microchip"></i> Technology</a></li>
+                            <li class="toggle" data-category="entertainment"><a href="/news?category=entertainment"><i class="fas fa-film"></i> Entertainment</a></li>
+                            <li class="toggle active" data-category="upload"><a href="/upload"><i class="fas fa-upload"></i> Upload Articles</a></li>
+                            <li class="toggle" data-category="saved"><a href="/news?category=saved"><i class="fas fa-bookmark"></i> Saved</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+            <div class="upload-container">
+                <h2>Submit Article</h2>
+                
+                <form id="upload-form" action="/upload" method="POST">
+                    <input type="url" name="article-url" 
+                           placeholder="Enter article URL" 
+                           value="{{ article_url | default('') }}"
+                           required
+                           class="url-input">
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+                <div id="uploaded-article" class="news-feed"></div>
+            </div>
+        </main>
+    </div>
+    <script src="/static/upload.js"></script>
+</body>
+</html>
