@@ -8,6 +8,7 @@ import sqlite3
 import hashlib
 import os
 from ai_analysis import AnalyserAI
+from openai import APIConnectionError
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # For session management
 ai_analyser = AnalyserAI()
@@ -153,8 +154,12 @@ def analyze_article():
         article_content = ' '.join(p.get_text() for p in paragraphs)
 
         # Use the AI analysis for both objectivity and tone instead of TextBlob
-        objectivity_results = ai_analyser.analyse_objectivity(article_content)
-        tone_results = ai_analyser.analyse_tone(article_content)
+        try:
+            objectivity_results = ai_analyser.analyse_objectivity(article_content)
+            tone_results = ai_analyser.analyse_tone(article_content)
+        except APIConnectionError as e:
+            objectivity_results = [("Error", 0)]
+            tone_results = [("Error", 0)]
         
         result = {
             'content': article_content,

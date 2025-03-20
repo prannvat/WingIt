@@ -169,15 +169,22 @@ def to_cache(text, mode, response):
 
 class AnalyserAI():
     def __init__(self):
+        print("CONNECTING TO OPENAI SERVER...")
+    
         with open("openai_key.txt") as f:
             API_KEY_FROM_FILE = f.read()[:-1]
 
         self._client = OpenAI(
             api_key=API_KEY_FROM_FILE
         )
+        
+        print("OPENAI SERVER IS CONNECTED.")
 
 
     def analyse_objectivity(self, text):
+        print("ANALYSING OBJECTIVITY...")
+        print(text)
+    
         # RETURNS EITHER:
         #     None - If the AI failed to provide a valid response
         #     A list of:
@@ -229,6 +236,7 @@ class AnalyserAI():
         # Here, 'data' is a redundant error message string
         # 'history' can be used for further checking
         if not valid_response:
+            print("OBJECTIVITY ANALYSIS FAILED")
             return None
 
         if cached is None:
@@ -241,10 +249,13 @@ class AnalyserAI():
             point = element["point"]
             score = element["score"]
             tuples += [(point, score)]
+            
+        print("OBJECTIVITY ANALYSIS SUCCESS")
 
         return tuples
         
     def analyse_tone(self, text):
+        print("ANALYSING TONE...")
         # RETURNS EITHER:
         #     None - If the AI failed to provide a valid response
         #     A list of:
@@ -299,6 +310,7 @@ class AnalyserAI():
         # Here, 'data' is a redundant error message string
         # 'history' can be used for further checking
         if not valid_response:
+            print("TONE ANALYSIS FAILED")
             return None
 
         if cached is None:
@@ -311,6 +323,8 @@ class AnalyserAI():
             point = element["point"]
             intensity = element["intensity"]
             tuples += [(point, intensity)]
+            
+        print("TONE ANALYSIS SUCCESS")
 
         return tuples
         
