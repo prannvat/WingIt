@@ -17,7 +17,6 @@ function getSavedArticles() {
 
 function saveArticle(article) {
     const savedArticles = getSavedArticles();
-    // Check if article is already saved
     if (!savedArticles.some(a => a.url === article.url)) {
         savedArticles.push(article);
         localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
@@ -52,12 +51,11 @@ async function fetchNews(query = '', category = '') {
     }
 
     const url = `${baseUrl}${endpoint}?${queryParams}&apiKey=${newsApiKey}`;
-    console.log('Fetching from URL:', url); // Debug log
-
+    console.log('Fetching from URL:', url);
     try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log('API Response:', data); // Debug log
+        console.log('API Response:', data);
         return data.articles;
     } catch (error) {
         console.error('Error fetching news:', error);
@@ -66,8 +64,6 @@ async function fetchNews(query = '', category = '') {
 }
 
 function displayNews(articles, append = true) {
-    console.log('Displaying articles:', articles); // Debug log
-    
     if (!append) {
         newsContainer.innerHTML = '';
     }
@@ -76,7 +72,6 @@ function displayNews(articles, append = true) {
         const articleElement = document.createElement('div');
         articleElement.classList.add('article');
         
-        // Check if article is already saved
         const isSaved = isArticleSaved(article.url);
         const saveButtonText = isSaved ? 'Saved' : 'Save';
         const saveButtonClass = isSaved ? 'saved' : '';
@@ -108,17 +103,13 @@ function displayNews(articles, append = true) {
             const articleUrl = button.getAttribute('data-url');
             
             if (button.classList.contains('saved')) {
-                // Remove from saved
                 removeArticle(articleUrl);
                 button.textContent = 'Save';
                 button.classList.remove('saved');
-                
-                // If viewing saved articles, remove this article from view
                 if (viewingSaved) {
                     articleElement.remove();
                 }
             } else {
-                // Find the article object by URL and save it
                 const articleToSave = articles.find(a => a.url === articleUrl);
                 if (articleToSave && saveArticle(articleToSave)) {
                     button.textContent = 'Saved';
@@ -131,59 +122,6 @@ function displayNews(articles, append = true) {
     });
 }
 
-function initializeCategories() {
-    const categoryMap = {
-        'home': '',
-        'world': 'general',
-        'business': 'business',
-        'technology': 'technology',
-        'entertainment': 'entertainment',
-        'saved': 'saved' // Add saved category
-    };
-
-    categoryItems.forEach(item => {
-        item.addEventListener('click', async () => {
-            console.log('Category clicked:', item.textContent.trim()); // Debug log
-            
-            categoryItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-
-            page = 1;
-            currentQuery = '';
-            searchInput.value = '';
-
-            const categoryText = item.textContent.trim().toLowerCase();
-            console.log('Category text:', categoryText); // Debug log
-            
-            // Handle saved articles category
-            if (categoryText === 'saved') {
-                viewingSaved = true;
-                displaySavedArticles();
-                return;
-            }
-            
-            viewingSaved = false;
-            currentCategory = categoryMap[categoryText];
-            console.log('Mapped category:', currentCategory); // Debug log
-
-            const articles = await fetchNews('', currentCategory);
-            displayNews(articles, false);
-
-            // Remove old sentinel if it exists
-            const oldSentinel = document.querySelector('.sentinel');
-            if (oldSentinel) {
-                oldSentinel.remove();
-            }
-
-            const sentinel = document.createElement('div');
-            sentinel.className = 'sentinel';
-            newsContainer.appendChild(sentinel);
-            observer.observe(sentinel);
-        });
-    });
-}
-
-// Function to display saved articles
 function displaySavedArticles() {
     const savedArticles = getSavedArticles();
     newsContainer.innerHTML = '';
@@ -194,17 +132,71 @@ function displaySavedArticles() {
     }
     
     displayNews(savedArticles, false);
-    
-    // No need for infinite scroll with saved articles
-    const oldSentinel = document.querySelector('.sentinel');
-    if (oldSentinel) {
-        oldSentinel.remove();
+}
+
+function initializeCategories() {
+    const categoryMap = {
+        'home': '',
+        'world': 'general',
+        'business': 'business',
+        'technology': 'technology',
+        'entertainment': 'entertainment',
+        'upload': 'upload',
+        'saved': 'saved'
+    };
+
+    // Only initialize if we're on the news page
+    if (window.location.pathname === '/news') {
+        categoryItems.forEach(item => {
+            item.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const category = item.getAttribute('data-category');
+                
+                categoryItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                page = 1;
+                currentQuery = '';
+                searchInput.value = '';
+
+                if (category === 'upload') {
+                    window.location.href = '/upload';
+                    return;
+                }
+
+                if (category === 'saved') {
+                    viewingSaved = true;
+                    displaySavedArticles();
+                    return;
+                }
+
+                currentCategory = categoryMap[category];
+                const articles = await fetchNews('', currentCategory);
+                displayNews(articles, false);
+
+                const oldSentinel = document.querySelector('.sentinel');
+                if (oldSentinel) oldSentinel.remove();
+                const sentinel = document.createElement('div');
+                sentinel.className = 'sentinel';
+                newsContainer.appendChild(sentinel);
+                observer.observe(sentinel);
+            });
+        });
+    } else if (window.location.pathname === '/upload') {
+        // On upload page, let static links work naturally
+        categoryItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            item.classList.toggle('active', category === 'upload');
+            // Remove any existing click listeners to avoid interference
+            item.removeEventListener('click', item.onclick);
+            // Ensure the <a> tag's href handles navigation
+        });
     }
 }
 
 const observer = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) {
-        console.log('Loading more articles...'); // Debug log
+        console.log('Loading more articles...');
         page++;
         fetchNews(currentQuery, currentCategory).then(articles => displayNews(articles, true));
     }
@@ -215,7 +207,6 @@ const observer = new IntersectionObserver(entries => {
 searchButton.addEventListener('click', async () => {
     const query = searchInput.value.trim();
     if (query) {
-        console.log('Searching for:', query); // Debug log
         page = 1;
         currentQuery = query;
         currentCategory = '';
@@ -223,11 +214,10 @@ searchButton.addEventListener('click', async () => {
         const articles = await fetchNews(query);
         displayNews(articles, false);
 
-        // Reset sentinel
+ $
+
         const oldSentinel = document.querySelector('.sentinel');
-        if (oldSentinel) {
-            oldSentinel.remove();
-        }
+        if (oldSentinel) oldSentinel.remove();
         const sentinel = document.createElement('div');
         sentinel.className = 'sentinel';
         newsContainer.appendChild(sentinel);
@@ -246,48 +236,27 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
-// Initial load
 function init() {
-    console.log('Initializing...'); // Debug log
+    console.log('Initializing...');
     initializeCategories();
-    fetchNews().then(articles => {
-        displayNews(articles, false);
-        const sentinel = document.createElement('div');
-        sentinel.className = 'sentinel';
-        newsContainer.appendChild(sentinel);
-        observer.observe(sentinel);
-    });
+
+    if (window.location.pathname === '/news') {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+        if (category === 'saved') {
+            viewingSaved = true;
+            displaySavedArticles();
+        } else {
+            currentCategory = category || '';
+            fetchNews('', currentCategory).then(articles => {
+                displayNews(articles, false);
+                const sentinel = document.createElement('div');
+                sentinel.className = 'sentinel';
+                newsContainer.appendChild(sentinel);
+                observer.observe(sentinel);
+            });
+        }
+    }
 }
 
 init();
-
-// Toggle functionality for category filters
-document.addEventListener('DOMContentLoaded', function() {
-    const toggles = document.querySelectorAll('.category-toggles .toggle');
-    
-    toggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            // If the toggle is already active and it's not "home", just return
-            if (this.classList.contains('active') && this.getAttribute('data-category') !== 'home') {
-                return;
-            }
-            
-            // Remove active class from all toggles
-            toggles.forEach(t => t.classList.remove('active'));
-            
-            // Add active class to clicked toggle
-            this.classList.add('active');
-            
-            // Here you would filter news content based on the selected category
-            const category = this.getAttribute('data-category');
-            console.log(`Category selected: ${category}`);
-            
-            // You can add code here to filter the news articles by category
-            // For example:
-            // filterArticlesByCategory(category);
-        });
-    });
-    
-    // Additional code for search functionality, article loading, etc.
-    // would go here...
-});

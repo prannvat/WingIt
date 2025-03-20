@@ -1,4 +1,3 @@
-/* styles.css */
 :root {
     --primary-color: #1DA1F2;
     --background-color: #f7f9fa;
@@ -86,6 +85,29 @@ nav ul.category-toggles li.toggle.active {
     border: 1px solid var(--primary-color);
 }
 
+/* New rules for <a> tags to prevent underlines */
+nav ul.category-toggles li.toggle a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+}
+
+nav ul.category-toggles li.toggle a:hover {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+nav ul.category-toggles li.toggle.active a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+nav ul.category-toggles li.toggle a:visited {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
 nav ul li i {
     margin-right: 10px;
 }
@@ -115,11 +137,12 @@ nav ul li i {
     padding-right: 20px;
     gap: 20px;
 }
+
 /* Updated search container for center position */
 .search-container {
     width: 100%;
     position: relative;
-    margin: 0 ;
+    margin: 0;
     max-width: 500px;
 }
 
@@ -260,4 +283,54 @@ nav ul li i {
     color: #666;
     font-size: 18px;
     max-width: 500px;
+}
+
+.upload-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.url-input {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 1rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    background: #007bff;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.submit-btn:hover {
+    background: #0056b3;
+}
+
+.alert {
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Article</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="main-header">
+                <div class="main-header-content">
+                    <div class="logo">
+                        <i class="fas fa-newspaper"></i>
+                        <h1>Wing It</h1>
+                    </div>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search news...">
+                        <button id="search-button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <!-- Sidebar with navigation tabs -->
+                <aside class="sidebar">
+                    <nav>
+                        <ul class="category-toggles">
+                            <li class="toggle" data-category="home"><a href="/news"><i class="fas fa-home"></i> Home</a></li>
+                            <li class="toggle" data-category="world"><a href="/news?category=world"><i class="fas fa-globe"></i> World</a></li>
+                            <li class="toggle" data-category="business"><a href="/news?category=business"><i class="fas fa-chart-line"></i> Business</a></li>
+                            <li class="toggle" data-category="technology"><a href="/news?category=technology"><i class="fas fa-microchip"></i> Technology</a></li>
+                            <li class="toggle" data-category="entertainment"><a href="/news?category=entertainment"><i class="fas fa-film"></i> Entertainment</a></li>
+                            <li class="toggle active" data-category="upload"><a href="/upload"><i class="fas fa-upload"></i> Upload Articles</a></li>
+                            <li class="toggle" data-category="saved"><a href="/news?category=saved"><i class="fas fa-bookmark"></i> Saved</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+            </div>
+
+            <!-- Upload Form -->
+            <div class="upload-container">
+                <h2>Submit Article</h2>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form id="upload-form" action="/upload" method="POST">
+                    <input type="url" name="article-url" 
+                           placeholder="Enter article URL" 
+                           value="{{ article_url | default('') }}"
+                           required
+                           class="url-input">
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
