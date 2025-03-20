@@ -140,7 +140,7 @@ def news():
     if((request.method == "GET") and (request.headers["Accept"] == "application/json")):
         conn = sqlite3.connect('users.db')
         c = conn.cursor()
-        c.execute("SELECT categories FROM users WHERE name = ?", (userId,)) 
+        c.execute("SELECT categories FROM users WHERE id = ?", (userId,)) 
         categories = c.fetchone()
         conn.close()
         #could find no other way to make this work, python json seems to really hate js json
@@ -159,7 +159,7 @@ def settings():
         try:
             conn = sqlite3.connect('users.db')
             c = conn.cursor()
-            c.execute("UPDATE users SET categories = ? WHERE name = ?", (str(json.loads(json.dumps(request.json))), userId)) 
+            c.execute("UPDATE users SET categories = ? WHERE id = ?", (str(json.loads(json.dumps(request.json))), userId)) 
             conn.commit()
             conn.close()
             return jsonify({'success': True})
@@ -170,7 +170,7 @@ def settings():
 
         conn = sqlite3.connect('users.db')
         c = conn.cursor()
-        c.execute("SELECT categories FROM users WHERE name = ?", (userId,)) 
+        c.execute("SELECT categories FROM users WHERE id = ?", (userId,)) 
         categories = c.fetchone()
         conn.close()
         #could find no other way to make this work, python json seems to really hate js json
