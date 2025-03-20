@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Trump administration's power grabs", "intensity": -0.9},
+    {"point": "deporting migrants without due process", "intensity": -1.0},
+    {"point": "Trump's threats against judges", "intensity": -0.8},
+    {"point": "ignoring federal judge's orders", "intensity": -1.0},
+    {"point": "escalation and test of U.S. Constitution", "intensity": -0.9},
+    {"point": "administration's disregard for judiciary", "intensity": -0.7},
+    {"point": "calls to impeach judges", "intensity": -0.9},
+    {"point": "potential obstruction of justice", "intensity": -1.0}
+]
+```

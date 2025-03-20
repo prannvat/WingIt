@@ -47,13 +47,41 @@ function displayArticleAndAnalysis(data, articleUrl) {
         <div class="analysis-section">
             <h3>Objectivity Analysis</h3>
             <ul>
-                ${data.objectivity.map(item => `<li>${item[0]}: ${item[1]}</li>`).join('')}
+                ${data.objectivity.map(item => `
+                    <li>
+                        <div class="meter-label">${item[0]}</div>
+                        <div class="sentiment-meter">
+                            <div class="meter">
+                                <div class="meter-value objectivity" style="width: ${item[1] * 100}%;"></div>
+                            </div>
+                            <div class="meter-scale">
+                                <span>Subjective</span>
+                                <span>Neutral</span>
+                                <span>Objective</span>
+                            </div>
+                        </div>
+                    </li>
+                `).join('')}
             </ul>
         </div>
         <div class="analysis-section">
             <h3>Tone Analysis</h3>
             <ul>
-                ${data.tone.map(item => `<li>${item[0]}: ${item[1]}</li>`).join('')}
+                ${data.tone.map(item => `
+                    <li>
+                        <div class="meter-label">${item[0]}</div>
+                        <div class="sentiment-meter">
+                            <div class="meter">
+                                <div class="meter-value sentiment" style="width: ${((parseFloat(item[1]) + 1) / 2) * 100}%;"></div>
+                            </div>
+                            <div class="meter-scale">
+                                <span>Negative</span>
+                                <span>Neutral</span>
+                                <span>Positive</span>
+                            </div>
+                        </div>
+                    </li>
+                `).join('')}
             </ul>
         </div>
     `;

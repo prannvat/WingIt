@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Pixel 9a as its mid-range phone for 2025", "intensity": 0.5},
+    {"point": "feels like its own design compared to past Pixel devices", "intensity": 0.7},
+    {"point": "35% brighter than the Pixel 8a", "intensity": 0.8},
+    {"point": "IP68 dust and water resistance that’s up from IP67", "intensity": 0.6},
+    {"point": "I do enjoy the additional work Google put in", "intensity": 0.9},
+    {"point": "Google delayed it to check on a component quality issue", "intensity": -0.5},
+    {"point": "camera is similar to the Pixel 9 Pro Fold’s", "intensity": 0.4},
+    {"point": "It’s powered by the Tensor G4 with 8GB of RAM", "intensity": 0.7}
+]
+```
