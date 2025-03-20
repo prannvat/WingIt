@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 from textblob import TextBlob
 import requests
@@ -6,10 +7,10 @@ from functools import wraps
 import sqlite3
 import hashlib
 import os
-
+from ai_analysis import AnalyserAI
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # For session management
-
+ai_analyser = AnalyserAI()
 # Database setup
 def init_db():
     conn = sqlite3.connect('users.db')
@@ -111,6 +112,32 @@ def logout():
 def news():
     return render_template('index.html')
 
+# @app.route('/analyze', methods=['POST'])
+# def analyze_article():
+#     data = request.json
+#     article_url = data.get('url', '')
+
+#     try:
+#         # Fetch the article content
+#         response = requests.get(article_url)
+#         soup = BeautifulSoup(response.content, 'html.parser')
+        
+#         # Get all paragraphs and join them
+#         paragraphs = soup.find_all('p')
+#         article_content = ' '.join(p.get_text() for p in paragraphs)
+
+#         # Perform sentiment analysis
+#         blob = TextBlob(article_content)
+        
+#         return jsonify({
+#             'content': article_content,
+#             'polarity': blob.sentiment.polarity,
+#             'subjectivity': blob.sentiment.subjectivity
+#         })
+#     except Exception as e:
+#         print(f"Error in analyze_article: {str(e)}")  # Debug log
+#         return jsonify({'error': str(e)}), 500
+
 @app.route('/analyze', methods=['POST'])
 def analyze_article():
     data = request.json
@@ -125,19 +152,22 @@ def analyze_article():
         paragraphs = soup.find_all('p')
         article_content = ' '.join(p.get_text() for p in paragraphs)
 
-        # Perform sentiment analysis
-        blob = TextBlob(article_content)
+        # Use the AI analysis for both objectivity and tone instead of TextBlob
+        objectivity_results = ai_analyser.analyse_objectivity(article_content)
+        tone_results = ai_analyser.analyse_tone(article_content)
         
-        return jsonify({
+        result = {
             'content': article_content,
-            'polarity': blob.sentiment.polarity,
-            'subjectivity': blob.sentiment.subjectivity
-        })
+            'objectivity': objectivity_results,
+            'tone': tone_results
+        }
+        
+        result_json = json.dumps(result, indent=2)
+        print("Analysis Result:", result_json)   # Debug log
+        return result_json
     except Exception as e:
         print(f"Error in analyze_article: {str(e)}")  # Debug log
         return jsonify({'error': str(e)}), 500
-
-    
 
 @app.route('/article')
 # @login_required

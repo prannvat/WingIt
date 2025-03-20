@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "UN worker killed and others injured", "intensity": -0.9},
+    {"point": "Hamas blames Israeli strike", "intensity": -0.8},
+    {"point": "Israel denies striking the UN compound", "intensity": -0.5},
+    {"point": "Israel resumes fighting in Gaza", "intensity": -0.7},
+    {"point": "High number of casualties reported", "intensity": -1.0},
+    {"point": "UN calls for a full investigation", "intensity": 0.5},
+    {"point": "Humanitarian aid stopped from entering Gaza", "intensity": -0.9},
+    {"point": "Netanyahu's decision criticized by families", "intensity": -0.6}
+]
+```

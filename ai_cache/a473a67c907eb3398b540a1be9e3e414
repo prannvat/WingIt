@@ -1,12 +1,12 @@
 ```json
 [
-    {"point": "refreshing crispness in the air", "intensity": 0.8},
+    {"point": "refreshing crispness in the air", "intensity": 0.7},
     {"point": "enthusiastic chatter of students eager to learn", "intensity": 0.9},
     {"point": "teachers passionately engaged with their pupils", "intensity": 0.8},
     {"point": "joyous sounds of laughter and playful banter", "intensity": 0.9},
-    {"point": "variety of delicious and nutritious meals", "intensity": 0.9},
+    {"point": "variety of delicious and nutritious meals", "intensity": 0.8},
     {"point": "friendly greetings and animated conversations", "intensity": 0.85},
     {"point": "sense of community and warmth", "intensity": 0.9},
-    {"point": "a haven of learning and growth", "intensity": 0.95}
+    {"point": "haven of learning and growth", "intensity": 0.95}
 ]
 ```

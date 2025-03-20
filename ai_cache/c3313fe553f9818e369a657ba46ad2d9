@@ -1,12 +1,11 @@
 ```json
 [
-    {"point": "endless cycle of monotony", "score": 0.2},
-    {"point": "fleeting excitement", "score": 0.3},
-    {"point": "overwhelming at times", "score": 0.4},
-    {"point": "stern calls from teachers", "score": 0.6},
-    {"point": "days felt brighter", "score": 0.3},
-    {"point": "dragged on during math lessons", "score": 0.4},
-    {"point": "reprise with impromptu football matches", "score": 0.5},
-    {"point": "every triumph felt like a ray of light", "score": 0.3}
+    {"point": "Attending Greenwood Academy felt like an endless cycle of monotony and fleeting excitement.", "score": 0.2},
+    {"point": "The corridors were always bustling—overwhelming at times—with the cacophony of students and the occasional stern calls.", "score": 0.4},
+    {"point": "Some days felt brighter, like when the art teacher praised a carefully sketched portrait.", "score": 0.3},
+    {"point": "Others dragged on, especially during math lessons that seemed to stretch into eternity.", "score": 0.2},
+    {"point": "Lunchtimes, however, offered a reprieve with impromptu football matches and laughter with friends.", "score": 0.5},
+    {"point": "Every triumph felt like a ray of light piercing through the relentless drizzle.", "score": 0.1},
+    {"point": "The occasional stern calls from teachers demanding order.", "score": 0.6}
 ]
 ```
