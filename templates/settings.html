@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wing It</title>
+    <link rel="stylesheet" href="/static/settings.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <a href="/news"><div id="back_to_news" class="fas fa-arrow-left" title="Back to news"></div></a>
+    <div class="container">
+        <div class="midbar padding"></div>
+        <div class="midbar">
+            <div id="settings">
+                <div class="setting_select" id="custom_parent" onclick="openSetting(event, 'custom_child')">
+                    Customise Feed
+                </div>
+                <div class="setting_select" id="signinup_parent" onclick="openSetting(event, 'signinup_child')">
+                    Sign Out
+                </div>
+            </div>
+        </div>
+        <div class="midbar child" id="placeholder"></div>
+        <div class="midbar child" id="custom_child">
+            <form id="category_settings"> 
+                <label class="category_container">Business
+                    <input type="checkbox"  class="category_toggle" id="business_toggle">
+                    <div class="custom_checkbox">
+                        <div class="custom_check"></div>
+                    </div>
+                </label>
+                <label class="category_container">Technology
+                    <input type="checkbox"  class="category_toggle" id="technology_toggle">
+                    <div class="custom_checkbox">
+                        <div class="custom_check"></div>
+                    </div>
+                </label>
+                <label class="category_container">Entertainment
+                    <input type="checkbox"  class="category_toggle" id="entertainment_toggle">
+                    <div class="custom_checkbox">
+                        <div class="custom_check"></div>
+                    </div>
+                </label>
+                <button type="submit" class="submit_button">
+                    Save Categories
+                </button>
+            </form>
+        </div>
+        <div class="midbar child" id="signinup_child">
+            <a href="/signin" class="signinup"><div>Sign into existing account</div></a> 
+            <a href="/signup" class="signinup"><div>Sign into new account</div></a>   
+        </div>
+        <div class="midbar padding"></div>
+    </div>
+    <script src="/static/settings.js"></script>
+</body>

@@ -122,6 +122,111 @@ function displayNews(articles, append = true) {
     });
 }
 
+
+function initializeCategories() {
+    const categoryMap = {
+        'home': '',
+        'world': 'general',
+        'business': 'business',
+        'technology': 'technology',
+        'entertainment': 'entertainment',
+        'custom': 'custom', // Added category for custom  
+        'saved': 'saved', // Add saved category
+    };
+
+    categoryItems.forEach(item => {
+        item.addEventListener('click', async () => {
+            console.log('Category clicked:', item.textContent.trim()); // Debug log
+            
+            categoryItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+
+            page = 1;
+            currentQuery = '';
+            searchInput.value = '';
+
+            const categoryText = item.textContent.trim().toLowerCase();
+            console.log('Category text:', categoryText); // Debug log
+            
+            // Handle saved articles category
+            if (categoryText === 'saved') {
+                viewingSaved = true;
+                displaySavedArticles();
+                return;
+            }
+            
+            viewingSaved = false;
+
+            //Not going to take part in the gaslighting that js is a real language
+            //also wanted to reassign articles 21 lines down (it works liberal)
+            //Realistically JS is so abstracted I doubt this not being const really matters	
+            let articles = [];
+            if (categoryText === 'custom') {
+
+                let categories = await getCustomCategories();
+                let categoryKeysStrings = Object.keys(categories);
+                let currentCategories = [];
+
+                //Get all true categories
+                for(let i = 0; i < categoryKeysStrings.length; i++) {
+                    category = categoryKeysStrings[i];
+                    if(categories[category]) {
+                        currentCategories.push(category);
+                    }
+                }
+
+                //Grab all articles
+                let articlesByCategory = [];
+                for(let i = 0; i < currentCategories.length; i++) {
+                    category = currentCategories[i];
+                    category = categoryMap[category];
+                    articlesByCategory.push(await fetchNews('', category));
+                }
+
+                //Get the length of the longest collection of articles
+                let longestCategory = 0;
+                for(let i = 0; i < articlesByCategory.length; i++) {
+                    if(articlesByCategory[i].length > longestCategory) {
+                        longestCategory = articlesByCategory[i].length
+                    }
+                }
+
+                //Then add them alternating to the feed so theres some variance in subject
+                for(let i = 0; i < longestCategory; i++) {
+                    for(let j = 0; j < articlesByCategory.length; j++) {
+                        try {
+                            if(typeof(articlesByCategory[j][i]) !== "undefined") {
+                                articles.push(articlesByCategory[j][i]);
+                                console.log("pushed")
+                            }
+                        } catch {/*This is expected to fail often*/}
+                    }
+                }
+            } else {
+                //This is just the old code for most cases
+                currentCategory = categoryMap[categoryText];
+                console.log('Mapped category:', currentCategory); // Debug log
+
+                articles = articles.concat(await fetchNews('', currentCategory));
+            }
+            displayNews(articles, false);
+
+            // Remove old sentinel if it exists
+            const oldSentinel = document.querySelector('.sentinel');
+            if (oldSentinel) {
+                oldSentinel.remove();
+            }
+
+            const sentinel = document.createElement('div');
+            sentinel.className = 'sentinel';
+            newsContainer.appendChild(sentinel);
+            observer.observe(sentinel);
+        });
+    });
+}
+
+// Function to display saved articles
+
 function displaySavedArticles() {
     const savedArticles = getSavedArticles();
     newsContainer.innerHTML = '';
@@ -183,6 +288,31 @@ function initializeCategories() {
         });
     }
 }
+
+async function getCustomCategories() {
+    let output = {
+        business: false,
+        technology: false,
+        entertainment: false,
+    }
+    try {
+        const response = await fetch('/news', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+        const data = await response.json();
+        output.business = data.business;
+        output.technology = data.technology;
+        output.entertainment = data.entertainment;
+    }
+    catch (error) {
+        alert("An error occured fetching custom settings " + error);
+    }
+    return output;
+}
+
 
 const observer = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) {
@@ -247,4 +377,39 @@ function init() {
     }
 }
 
+
 init();
+
+// Toggle functionality for category filters
+document.addEventListener('DOMContentLoaded', function() {
+    const toggles = document.querySelectorAll('.category-toggles .toggle');
+    
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            // If the toggle is already active and it's not "home", just return
+            if (this.classList.contains('active') && this.getAttribute('data-category') !== 'home') {
+                return;
+            }
+            
+            // Remove active class from all toggles
+            toggles.forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked toggle
+            this.classList.add('active');
+            
+            // Here you would filter news content based on the selected category
+            const category = this.getAttribute('data-category');
+            console.log(`Category selected: ${category}`);
+            
+            // You can add code here to filter the news articles by category
+            // For example:
+            // filterArticlesByCategory(category);
+        });
+    });
+    
+    // Additional code for search functionality, article loading, etc.
+    // would go here...
+});
+
+
+

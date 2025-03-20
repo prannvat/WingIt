@@ -196,7 +196,7 @@ nav ul.category-toggles li.toggle a:active {
     box-sizing: border-box;
 }
 
-/* Search Container */
+
 .search-container {
     max-width: 500px;
     width: 100%;
@@ -340,6 +340,7 @@ nav ul.category-toggles li.toggle a:active {
     max-width: 500px;
 }
 
+
 /* Logo Text Styling */
 .wing3 {
     font-family: 'Sonsie One', cursive;
@@ -429,3 +430,29 @@ nav ul.category-toggles li.toggle a:active {
     background-color: #003a8c;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+#settings {
+    transition: all 0.2s;
+    display: flex;
+    font-size: 24.5px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24.5px;
+    color: var(--text-color);
+    width: 24.5px;
+    height: 24.5px;
+    margin: 10px;
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+#settings:hover {
+    color: var(--primary-color);
+}
+
+#search-container-container {
+    display: flex;
+    flex-direction: row;
+}
+
