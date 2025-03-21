@@ -172,10 +172,15 @@ class AnalyserAI():
         print("CONNECTING TO OPENAI SERVER...")
     
         with open("openai_key.txt") as f:
-            API_KEY_FROM_FILE = f.read()[:-1]
+            API_KEY_FROM_FILE = f.read()
+            
+        correct_key = ""
+        for char in API_KEY_FROM_FILE:
+            if char != "\n":
+                correct_key += char
 
         self._client = OpenAI(
-            api_key=API_KEY_FROM_FILE
+            api_key=correct_key
         )
         
         print("OPENAI SERVER IS CONNECTED.")
