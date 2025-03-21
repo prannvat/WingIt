@@ -121,8 +121,6 @@ function displayNews(articles, append = true) {
         newsContainer.appendChild(articleElement);
     });
 }
-
-
 function initializeCategories() {
     const categoryMap = {
         'home': '',
@@ -130,93 +128,51 @@ function initializeCategories() {
         'business': 'business',
         'technology': 'technology',
         'entertainment': 'entertainment',
-        'custom': 'custom', // Added category for custom  
-        'saved': 'saved', // Add saved category
+        'upload': 'upload',
+        'custom': 'custom',
+        'saved': 'saved'
     };
 
     categoryItems.forEach(item => {
-        item.addEventListener('click', async () => {
-            console.log('Category clicked:', item.textContent.trim()); // Debug log
+        item.addEventListener('click', async (e) => {
+            const link = item.querySelector('a');
+            if (link) {
+                // Let the link handle the navigation
+                return;
+            }
+            
+            e.preventDefault();
+            const category = item.getAttribute('data-category');
             
             categoryItems.forEach(i => i.classList.remove('active'));
             item.classList.add('active');
-
+            
             page = 1;
             currentQuery = '';
             searchInput.value = '';
 
-            const categoryText = item.textContent.trim().toLowerCase();
-            console.log('Category text:', categoryText); // Debug log
+            if (category === 'upload') {
+                window.location.href = '/upload';
+                return;
+            }
             
-            // Handle saved articles category
-            if (categoryText === 'saved') {
+            if (category === 'custom') {
+                window.location.href = '/settings';
+                return;
+            }
+
+            if (category === 'saved') {
                 viewingSaved = true;
                 displaySavedArticles();
                 return;
             }
-            
-            viewingSaved = false;
 
-            //Not going to take part in the gaslighting that js is a real language
-            //also wanted to reassign articles 21 lines down (it works liberal)
-            //Realistically JS is so abstracted I doubt this not being const really matters	
-            let articles = [];
-            if (categoryText === 'custom') {
-
-                let categories = await getCustomCategories();
-                let categoryKeysStrings = Object.keys(categories);
-                let currentCategories = [];
-
-                //Get all true categories
-                for(let i = 0; i < categoryKeysStrings.length; i++) {
-                    category = categoryKeysStrings[i];
-                    if(categories[category]) {
-                        currentCategories.push(category);
-                    }
-                }
-
-                //Grab all articles
-                let articlesByCategory = [];
-                for(let i = 0; i < currentCategories.length; i++) {
-                    category = currentCategories[i];
-                    category = categoryMap[category];
-                    articlesByCategory.push(await fetchNews('', category));
-                }
-
-                //Get the length of the longest collection of articles
-                let longestCategory = 0;
-                for(let i = 0; i < articlesByCategory.length; i++) {
-                    if(articlesByCategory[i].length > longestCategory) {
-                        longestCategory = articlesByCategory[i].length
-                    }
-                }
-
-                //Then add them alternating to the feed so theres some variance in subject
-                for(let i = 0; i < longestCategory; i++) {
-                    for(let j = 0; j < articlesByCategory.length; j++) {
-                        try {
-                            if(typeof(articlesByCategory[j][i]) !== "undefined") {
-                                articles.push(articlesByCategory[j][i]);
-                                console.log("pushed")
-                            }
-                        } catch {/*This is expected to fail often*/}
-                    }
-                }
-            } else {
-                //This is just the old code for most cases
-                currentCategory = categoryMap[categoryText];
-                console.log('Mapped category:', currentCategory); // Debug log
-
-                articles = articles.concat(await fetchNews('', currentCategory));
-            }
+            currentCategory = categoryMap[category];
+            const articles = await fetchNews('', currentCategory);
             displayNews(articles, false);
 
-            // Remove old sentinel if it exists
             const oldSentinel = document.querySelector('.sentinel');
-            if (oldSentinel) {
-                oldSentinel.remove();
-            }
-
+            if (oldSentinel) oldSentinel.remove();
             const sentinel = document.createElement('div');
             sentinel.className = 'sentinel';
             newsContainer.appendChild(sentinel);
@@ -224,6 +180,108 @@ function initializeCategories() {
         });
     });
 }
+
+// function initializeCategories() {
+//     const categoryMap = {
+//         'home': '',
+//         'world': 'general',
+//         'business': 'business',
+//         'technology': 'technology',
+//         'entertainment': 'entertainment',
+//         'custom': 'custom', // Added category for custom  
+//         'saved': 'saved', // Add saved category
+//     };
+
+//     categoryItems.forEach(item => {
+//         item.addEventListener('click', async () => {
+//             console.log('Category clicked:', item.textContent.trim()); // Debug log
+            
+//             categoryItems.forEach(i => i.classList.remove('active'));
+//             item.classList.add('active');
+
+//             page = 1;
+//             currentQuery = '';
+//             searchInput.value = '';
+
+//             const categoryText = item.textContent.trim().toLowerCase();
+//             console.log('Category text:', categoryText); // Debug log
+            
+//             // Handle saved articles category
+//             if (categoryText === 'saved') {
+//                 viewingSaved = true;
+//                 displaySavedArticles();
+//                 return;
+//             }
+            
+//             viewingSaved = false;
+
+//             //Not going to take part in the gaslighting that js is a real language
+//             //also wanted to reassign articles 21 lines down (it works liberal)
+//             //Realistically JS is so abstracted I doubt this not being const really matters	
+//             let articles = [];
+//             if (categoryText === 'custom') {
+
+//                 let categories = await getCustomCategories();
+//                 let categoryKeysStrings = Object.keys(categories);
+//                 let currentCategories = [];
+
+//                 //Get all true categories
+//                 for(let i = 0; i < categoryKeysStrings.length; i++) {
+//                     category = categoryKeysStrings[i];
+//                     if(categories[category]) {
+//                         currentCategories.push(category);
+//                     }
+//                 }
+
+//                 //Grab all articles
+//                 let articlesByCategory = [];
+//                 for(let i = 0; i < currentCategories.length; i++) {
+//                     category = currentCategories[i];
+//                     category = categoryMap[category];
+//                     articlesByCategory.push(await fetchNews('', category));
+//                 }
+
+//                 //Get the length of the longest collection of articles
+//                 let longestCategory = 0;
+//                 for(let i = 0; i < articlesByCategory.length; i++) {
+//                     if(articlesByCategory[i].length > longestCategory) {
+//                         longestCategory = articlesByCategory[i].length
+//                     }
+//                 }
+
+//                 //Then add them alternating to the feed so theres some variance in subject
+//                 for(let i = 0; i < longestCategory; i++) {
+//                     for(let j = 0; j < articlesByCategory.length; j++) {
+//                         try {
+//                             if(typeof(articlesByCategory[j][i]) !== "undefined") {
+//                                 articles.push(articlesByCategory[j][i]);
+//                                 console.log("pushed")
+//                             }
+//                         } catch {/*This is expected to fail often*/}
+//                     }
+//                 }
+//             } else {
+//                 //This is just the old code for most cases
+//                 currentCategory = categoryMap[categoryText];
+//                 console.log('Mapped category:', currentCategory); // Debug log
+
+//                 articles = articles.concat(await fetchNews('', currentCategory));
+//             }
+//             displayNews(articles, false);
+
+//             // Remove old sentinel if it exists
+//             const oldSentinel = document.querySelector('.sentinel');
+//             if (oldSentinel) {
+//                 oldSentinel.remove();
+//             }
+
+//             const sentinel = document.createElement('div');
+//             sentinel.className = 'sentinel';
+//             newsContainer.appendChild(sentinel);
+//             observer.observe(sentinel);
+//         });
+//     });
+// }
 
 // Function to display saved articles
 
@@ -239,55 +297,55 @@ function displaySavedArticles() {
     displayNews(savedArticles, false);
 }
 
-function initializeCategories() {
-    const categoryMap = {
-        'home': '',
-        'world': 'general',
-        'business': 'business',
-        'technology': 'technology',
-        'entertainment': 'entertainment',
-        'upload': 'upload',
-        'saved': 'saved'
-    };
+// function initializeCategories() {
+//     const categoryMap = {
+//         'home': '',
+//         'world': 'general',
+//         'business': 'business',
+//         'technology': 'technology',
+//         'entertainment': 'entertainment',
+//         'upload': 'upload',
+//         'saved': 'saved'
+//     };
 
-    if (window.location.pathname === '/news') {
-        categoryItems.forEach(item => {
-            item.addEventListener('click', async (e) => {
-                e.preventDefault();
-                const category = item.getAttribute('data-category');
+//     if (window.location.pathname === '/news') {
+//         categoryItems.forEach(item => {
+//             item.addEventListener('click', async (e) => {
+//                 e.preventDefault();
+//                 const category = item.getAttribute('data-category');
                 
-                categoryItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+//                 categoryItems.forEach(i => i.classList.remove('active'));
+//                 item.classList.add('active');
                 
-                page = 1;
-                currentQuery = '';
-                searchInput.value = '';
+//                 page = 1;
+//                 currentQuery = '';
+//                 searchInput.value = '';
 
-                if (category === 'upload') {
-                    window.location.href = '/upload';
-                    return;
-                }
+//                 if (category === 'upload') {
+//                     window.location.href = '/upload';
+//                     return;
+//                 }
 
-                if (category === 'saved') {
-                    viewingSaved = true;
-                    displaySavedArticles();
-                    return;
-                }
+//                 if (category === 'saved') {
+//                     viewingSaved = true;
+//                     displaySavedArticles();
+//                     return;
+//                 }
 
-                currentCategory = categoryMap[category];
-                const articles = await fetchNews('', currentCategory);
-                displayNews(articles, false);
+//                 currentCategory = categoryMap[category];
+//                 const articles = await fetchNews('', currentCategory);
+//                 displayNews(articles, false);
 
-                const oldSentinel = document.querySelector('.sentinel');
-                if (oldSentinel) oldSentinel.remove();
-                const sentinel = document.createElement('div');
-                sentinel.className = 'sentinel';
-                newsContainer.appendChild(sentinel);
-                observer.observe(sentinel);
-            });
-        });
-    }
-}
+//                 const oldSentinel = document.querySelector('.sentinel');
+//                 if (oldSentinel) oldSentinel.remove();
+//                 const sentinel = document.createElement('div');
+//                 sentinel.className = 'sentinel';
+//                 newsContainer.appendChild(sentinel);
+//                 observer.observe(sentinel);
+//             });
+//         });
+//     }
+// }
 
 async function getCustomCategories() {
     let output = {

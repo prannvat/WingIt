@@ -40,7 +40,7 @@
                             <li class="toggle {% if category == 'technology' %}active{% endif %}" data-category="technology"><a href="/news?category=technology"><i class="fas fa-microchip"></i> Technology</a></li>
                             <li class="toggle {% if category == 'entertainment' %}active{% endif %}" data-category="entertainment"><a href="/news?category=entertainment"><i class="fas fa-film"></i> Entertainment</a></li>
                             <li class="toggle {% if category == 'upload' %}active{% endif %}" data-category="upload"><a href="/upload"><i class="fas fa-upload"></i> Upload Articles</a></li>
-                            <li class="toggle" data-category="custom"><i class="fas fa-gears"></i> Custom</li>
+                            <li class="toggle {% if category == 'custom' %}active{% endif %}" data-category="custom"><a href="/settings"><i class="fas fa-gear"></i> Custom</a></li>
                             <li class="toggle {% if category == 'saved' %}active{% endif %}" data-category="saved"><a href="/news?category=saved"><i class="fas fa-bookmark"></i> Saved</a></li>
 <!-- 
                             <li class="toggle active" data-category="home"><i class="fas fa-home"></i> Home</li>
