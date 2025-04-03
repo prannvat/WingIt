@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "The Monmouthshire and Brecon Canal is set to mark its 225th anniversary", "intensity": 0.5},
+    {"point": "fears one of Wales' most popular canals could start to dry up within a week", "intensity": -0.8},
+    {"point": "Operators of the canal have warned of an 'urgent' water shortage", "intensity": -0.9},
+    {"point": "'Everything the canal supports is at threat - we risk losing the jewel in the crown of south Wales'", "intensity": -0.9},
+    {"point": "'The prospect of it having to close due to water shortages was utterly devastating'", "intensity": -0.9},
+    {"point": "the local council hoped to be able to open up further stretches down to Cwmbran", "intensity": 0.6},
+    {"point": "'It cannot be lost'", "intensity": -0.8},
+    {"point": "'protecting and enhancing our environment and natural resources is key'", "intensity": 0.5}
+]
+```

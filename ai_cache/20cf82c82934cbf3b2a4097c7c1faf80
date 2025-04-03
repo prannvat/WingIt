@@ -1,0 +1,8 @@
+```json
+[
+    {"point": "Reference indicates a specific error code", "intensity": 0.0},
+    {"point": "Links to error information show repeated messages", "intensity": -0.5},
+    {"point": "Data training cut-off mentioned", "intensity": -0.3},
+    {"point": "October 2023 signifies outdated information", "intensity": -0.6}
+]
+```

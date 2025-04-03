@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "The editor-in-chief of The Atlantic was an accidental fly on the wall", "score": 0.7},
+    {"point": "A group chat of top US officials discussed plans to conduct airstrikes", "score": 0.8},
+    {"point": "The White House sought to downplay the incident", "score": 0.6},
+    {"point": "Waltz criticized the limited capabilities of European navies", "score": 0.4},
+    {"point": "Hegseth expressed loathing for European free-loading", "score": 0.2},
+    {"point": "A message read 'TIME NOW (1144et): Weather is FAVORABLE.'", "score": 0.9},
+    {"point": "Goldberg expressed that it was 'fascinating,' revealing personal observation", "score": 0.3},
+    {"point": "Messages contained operational details about military actions being taken", "score": 0.9}
+]
+```

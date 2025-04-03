@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Israel’s call for Palestinians to leave Gaza has been called ethnic cleansing.", "score": 0.3},
+    {"point": "Mohammed stated, 'If they want to displace us voluntarily...'", "score": 0.2},
+    {"point": "Salwa believes Israel is using the bombings and starvation to pressure people.", "score": 0.2},
+    {"point": "Israel's war on Gaza has killed more than 50,000 Palestinians.", "score": 0.4},
+    {"point": "Mahmoud expresses a strong desire to leave Gaza.", "score": 0.1},
+    {"point": "Human rights organisations denounce Israel's actions as ethnic cleansing.", "score": 0.3},
+    {"point": "Many younger generations see no future for themselves in Gaza.", "score": 0.2},
+    {"point": "The idea of migration is viewed differently by older and younger generations.", "score": 0.5}
+]
+```

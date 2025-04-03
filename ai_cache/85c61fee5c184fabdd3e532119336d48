@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Looking to watch incredible tornadoes?", "intensity": 0.5},
+    {"point": "Check out our interactive maps", "intensity": 0.7},
+    {"point": "Trust us to help you plan the best day possible", "intensity": 0.9},
+    {"point": "most accurate weather forecast available", "intensity": 0.8},
+    {"point": "use data and technology for good", "intensity": 0.6},
+    {"point": "We may use or share your data", "intensity": -0.4},
+    {"point": "Take control of your data", "intensity": 0.5},
+    {"point": "world's most accurate forecaster", "intensity": 0.9}
+]
+```

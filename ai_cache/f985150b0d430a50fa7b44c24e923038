@@ -1,0 +1,8 @@
+```json
+[
+    {"point": "Reference to a specific document or error", "intensity": 0.0},
+    {"point": "Repeated hyperlink indicates persistent issue", "intensity": -0.5},
+    {"point": "Training data mentioned up to a specific date", "intensity": 0.0},
+    {"point": "Links provided suggest lack of resolution", "intensity": -0.6}
+]
+```

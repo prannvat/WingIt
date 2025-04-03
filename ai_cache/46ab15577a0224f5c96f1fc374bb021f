@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Watch today's top stories and most popular videos.", "score": 1.0},
+    {"point": "Looking to watch incredible tornadoes? We've got that too.", "score": 0.8},
+    {"point": "Check out our interactive maps, which provide you with features like past/future radar and customizable layers.", "score": 1.0},
+    {"point": "Trust us to help you plan the best day possible, with the most accurate weather forecast available.", "score": 0.4},
+    {"point": "We recognize our responsibility to use data and technology for good.", "score": 0.5},
+    {"point": "We may use or share your data with our data vendors.", "score": 0.6},
+    {"point": "Take control of your data.", "score": 0.5},
+    {"point": "The Weather Channel is the world's most accurate forecaster according to ForecastWatch, Global and Regional Weather Forecast Accuracy Overview, 2017-2022.", "score": 0.9}
+]
+```

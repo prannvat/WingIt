@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Israel's call for Palestinians to leave Gaza has been called ethnic cleansing.", "intensity": -0.9},
+    {"point": "Mohammed's strong rejection of leaving Gaza reflects deep emotional ties and resistance.", "intensity": 0.8},
+    {"point": "Salwa's struggles and determination showcase resilience despite extreme hardship.", "intensity": 0.7},
+    {"point": "The blockade has exacerbated food scarcity, leading to desperation among Gazans.", "intensity": -0.8},
+    {"point": "Mahmoud's eagerness to leave Gaza highlights a stark generational divide in hopes for the future.", "intensity": -0.7},
+    {"point": "The mention of ethnic cleansing evokes strong historical trauma for Palestinians.", "intensity": -0.9},
+    {"point": "Salwa's loss of her sister's children adds to the weight of suffering in Gaza.", "intensity": -1.0},
+    {"point": "The ongoing war and its effects result in a bleak outlook for the youth in Gaza.", "intensity": -0.9}
+]
+```

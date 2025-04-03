@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "received an extra £6m to reduce greenhouse gas emissions", "intensity": 1.0},
+    {"point": "target to become a carbon neutral authority forward", "intensity": 1.0},
+    {"point": "confident it could meet its own targets", "intensity": 0.9},
+    {"point": "more solar panels, switching street lights to lower energy bulbs", "intensity": 1.0},
+    {"point": "good to be an ambitious council", "intensity": 0.8},
+    {"point": "lack of detail for some of the work", "intensity": -0.7},
+    {"point": "exercise caution", "intensity": -0.5},
+    {"point": "advances in technology might achieve targets", "intensity": 0.3}
+]
+```

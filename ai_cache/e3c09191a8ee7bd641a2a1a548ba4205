@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "groundbreaking new study", "intensity": 0.8},
+    {"point": "fascinating findings from studying juvenile rig sharks", "intensity": 0.9},
+    {"point": "this study opens up a whole new possibility of communication via sound", "intensity": 0.8},
+    {"point": "wondering if the sound served as a distress signal", "intensity": -0.5},
+    {"point": "opens up some new questions, possibilities and avenues for future research", "intensity": 0.7},
+    {"point": "the consistent pattern and frequency of clicks suggest intentional sound production", "intensity": 0.6},
+    {"point": "we are observing a sound making behavior rather than a strange artifact", "intensity": 0.5},
+    {"point": "most clicks occurred when the shark was swaying side to side", "intensity": 0.4}
+]
+```

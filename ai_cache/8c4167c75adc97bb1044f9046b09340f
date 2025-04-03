@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "There is a symbiotic relationship between the ocean and the climate", "score": 0.7},
+    {"point": "It is a well-established fact that our planet is heating up", "score": 1.0},
+    {"point": "90% of this warming is occurring in the ocean itself", "score": 1.0},
+    {"point": "The ocean is also the planet’s biggest ‘carbon sink’", "score": 1.0},
+    {"point": "Ocean acidification from increased CO2 levels can harm marine life", "score": 0.8},
+    {"point": "Climate change affects the ocean and has knock-on effects", "score": 0.6},
+    {"point": "We must protect and restore the ocean", "score": 0.4},
+    {"point": "Oceans should absorb excess CO2 and heat from climate change", "score": 0.5}
+]
+```

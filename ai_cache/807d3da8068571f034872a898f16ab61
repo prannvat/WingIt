@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "casual conversation amongst officials", "intensity": 0.5},
+    {"point": "discussion of airstrikes", "intensity": -0.6},
+    {"point": "critique of Europe", "intensity": -0.8},
+    {"point": "positive responses to military actions", "intensity": 0.7},
+    {"point": "support for military decisions", "intensity": 0.6},
+    {"point": "emojis in serious discussions", "intensity": 0.4},
+    {"point": "prayers for victory", "intensity": 0.8},
+    {"point": "concerns about messaging", "intensity": -0.4}
+]
+```

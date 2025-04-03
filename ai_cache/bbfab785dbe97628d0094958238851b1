@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Hundreds of people took to the streets of Beit Lahia", "score": 1.0},
+    {"point": "many chanting anti-Hamas slogans", "score": 0.8},
+    {"point": "Hamas militants intervened and forcibly dispersed the protesters", "score": 0.9},
+    {"point": "Videos shared by activists critical of Hamas", "score": 0.6},
+    {"point": "Hamas condemned those pushing suspicious political agendas", "score": 0.4},
+    {"point": "several Palestinians have been killed and thousands displaced", "score": 0.8},
+    {"point": "We refuse to die for anyone... the most truthful voice", "score": 0.2},
+    {"point": "Hamas faces growing public dissent as Gaza war erodes support", "score": 0.7}
+]
+```

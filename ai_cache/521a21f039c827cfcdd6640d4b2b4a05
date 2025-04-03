@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Both sides agreed to end military activity in the Black Sea", "score": 1.0},
+    {"point": "Ukraine's President Volodymyr Zelensky said the deal to halt strikes was a step in the right direction", "score": 0.7},
+    {"point": "Russia said the naval ceasefire would only come into force after a number of sanctions against its food and fertiliser trade were lifted", "score": 0.8},
+    {"point": "Zelensky accused the Kremlin of lying about the ceasefire", "score": 0.3},
+    {"point": "US will help restore Russia's access to the world market for agricultural and fertiliser exports", "score": 0.6},
+    {"point": "Zelensky described this as a 'weakening of positions'", "score": 0.4},
+    {"point": "Moscow accused Ukraine of breaching the previously agreed ban on attacking energy infrastructure", "score": 0.5},
+    {"point": "The deal facilitated the movement of grain through the Black Sea", "score": 1.0}
+]
+```

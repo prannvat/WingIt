@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "The ocean and climate have a symbiotic relationship", "intensity": 0.5},
+    {"point": "The planet is heating up at an unprecedented rate", "intensity": -0.8},
+    {"point": "The ocean is the planet’s biggest ‘carbon sink’", "intensity": 0.6},
+    {"point": "Ocean acidification can harm marine life", "intensity": -0.7},
+    {"point": "Rising sea levels threaten livelihoods of coastal communities", "intensity": -0.9},
+    {"point": "A healthy ocean is essential in minimising climate change", "intensity": 0.7},
+    {"point": "We must protect and restore the ocean", "intensity": 0.8},
+    {"point": "Damage to the ocean is exacerbating climate change", "intensity": -0.85}
+]
+```

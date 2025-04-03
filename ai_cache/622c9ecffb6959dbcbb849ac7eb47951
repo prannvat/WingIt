@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "GameStop unanimously approved addition of bitcoin as a treasury reserve asset", "intensity": 0.8},
+    {"point": "GameStop shares jumped 7% to $27.23", "intensity": 0.7},
+    {"point": "Rebranding of Strategy emphasizes commitment to cryptocurrency", "intensity": 0.6},
+    {"point": "Rise in fourth-quarter profit, more than doubled", "intensity": 0.9},
+    {"point": "GameStop struggling with primary business due to digital trends", "intensity": -0.6},
+    {"point": "Closed 590 stores in fiscal 2024", "intensity": -0.7},
+    {"point": "Anticipates closing significant additional stores in fiscal 2025", "intensity": -0.8},
+    {"point": "Fourth-quarter revenue of $1.28 billion, down from $1.79 billion", "intensity": -0.5}
+]
+```

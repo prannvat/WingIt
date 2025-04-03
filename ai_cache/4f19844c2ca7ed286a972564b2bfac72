@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "The Monmouthshire and Brecon Canal is set to mark its 225th anniversary this year", "score": 1.0},
+    {"point": "There are fears one of Wales' most popular canals could start to dry up within a week", "score": 0.7},
+    {"point": "Operators have warned of an 'urgent' water shortage without imminent rainfall", "score": 0.6},
+    {"point": "\"Everything the canal supports is at threat - we risk losing the jewel in the crown of south Wales\"", "score": 0.4},
+    {"point": "\"Should we have problems with water supply then what's going to happen to those plans for restoration that we've all been working on for the past three years?\"", "score": 0.5},
+    {"point": "\"The canal took around 30% of the total flow of the river in 2022\"", "score": 0.8},
+    {"point": "Regulating water abstraction was \"a complex, evidence-based process that carefully balances environmental needs with those of local communities\"", "score": 0.9},
+    {"point": "\"To provide this free of charge or risk the future supply of drinking water to our customers, isn't an option for us\"", "score": 0.7}
+]
+```

@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Hundreds of people took to the streets of Beit Lahia", "intensity": 0.5},
+    {"point": "demand the group step down from power", "intensity": 0.7},
+    {"point": "Masked Hamas militants ... forcibly dispersed the protesters", "intensity": -0.8},
+    {"point": "assaulting several of them", "intensity": -0.9},
+    {"point": "Hamas said it condemned those who it accused", "intensity": -0.6},
+    {"point": "Pro-Hamas supporters downplayed the significance of the protests", "intensity": -0.5},
+    {"point": "We refuse to die for anyone", "intensity": 0.6},
+    {"point": "Hamas faces growing public dissent as Gaza war erodes support", "intensity": -0.7}
+]
+```

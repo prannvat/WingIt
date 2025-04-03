@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "The Python library contains several different kinds of components.", "score": 1.0},
+    {"point": "It contains data types that would normally be considered part of the core of a language.", "score": 0.8},
+    {"point": "The library also contains built-in functions and exceptions.", "score": 1.0},
+    {"point": "Some modules provide interfaces that are highly specific to Python.", "score": 0.7},
+    {"point": "This manual is organized 'from the inside out.'", "score": 0.6},
+    {"point": "If you enjoy learning about random subjects, you choose a random page number.", "score": 0.4},
+    {"point": "WebAssembly, Emscripten, and WASI are evolving standards.", "score": 0.7},
+    {"point": "Creating subprocesses is possible but officially unsupported on Android.", "score": 0.5}
+]
+```

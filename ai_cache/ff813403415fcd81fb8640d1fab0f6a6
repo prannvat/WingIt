@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Python library contains several components", "intensity": 0.5},
+    {"point": "Built-in functions can be used without import", "intensity": 0.7},
+    {"point": "Some modules are written in C and built in", "intensity": 0.6},
+    {"point": "Availability on Unix systems noted throughout", "intensity": 0.4},
+    {"point": "Many modules support only specific operating systems", "intensity": -0.4},
+    {"point": "Mobile apps have limited access to system resources", "intensity": -0.6},
+    {"point": "Subprocesses on iOS can result in app crashes", "intensity": -0.8},
+    {"point": "Console output limitations on mobile platforms", "intensity": -0.7}
+]
+```

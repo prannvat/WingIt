@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Musk has expressed a desire for a government shutdown", "intensity": -0.7},
+    {"point": "Musk's goal is for the continuing resolution to tank", "intensity": -0.8},
+    {"point": "Job eliminations of federal workers", "intensity": -0.9},
+    {"point": "Concerns about the impact of shutdown on federal workers", "intensity": -0.6},
+    {"point": "Musk's preference for shutting down nonessential jobs", "intensity": -0.8},
+    {"point": "Trump praised the House Freedom Caucus", "intensity": 0.7},
+    {"point": "The White House believes a temporary resolution may not solve long-term issues", "intensity": -0.5},
+    {"point": "Impact of a shutdown leading to permanent cuts feared by employees", "intensity": -0.6}
+]
+```

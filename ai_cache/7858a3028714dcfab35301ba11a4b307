@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "Both sides agreed to end military activity in the Black Sea", "intensity": 0.8},
+    {"point": "Ukrainian President Volodymyr Zelensky said the deal to halt strikes was a step in the right direction", "intensity": 0.6},
+    {"point": "Russia said the naval ceasefire would only come into force after sanctions were lifted", "intensity": -0.5},
+    {"point": "Zelensky accused the Kremlin of lying regarding sanctions", "intensity": -0.7},
+    {"point": "US will help restore Russia's access to the world market for agricultural exports", "intensity": 0.4},
+    {"point": "Ongoing accusations of breaching the ban on attacking energy infrastructure", "intensity": -0.6},
+    {"point": "Russian strikes on Ukraine's power supply caused widespread blackouts", "intensity": -0.9},
+    {"point": "Ukraine will have the right to exercise self-defence", "intensity": 0.3}
+]
+```

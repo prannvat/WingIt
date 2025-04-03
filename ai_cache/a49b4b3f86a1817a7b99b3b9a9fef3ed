@@ -1,0 +1,12 @@
+```json
+[
+    {"point": "GameStop said Tuesday that its board has unanimously approved the addition of bitcoin as a treasury reserve asset.", "score": 1.0},
+    {"point": "GameStop shares jumped 7% to $27.23 in after-hours trading.", "score": 1.0},
+    {"point": "The decision echoes that of Strategy, the largest corporate holder of bitcoin, which in February dropped the word 'Micro' from its name.", "score": 0.8},
+    {"point": "Strategy said that the rebranding was 'a natural evolution' as it seeks to integrate bitcoin into its business operations.", "score": 0.5},
+    {"point": "GameStop comes shortly after President Trump’s executive order to establish a strategic reserve of cryptocurrencies.", "score": 1.0},
+    {"point": "GameStop will use a portion of its cash or future debt or equity issuances to be invested in bitcoin.", "score": 0.7},
+    {"point": "It also posted a rise in fourth-quarter profit, helped by its efforts to reduce costs.", "score": 0.8},
+    {"point": "The company has been struggling with its primary business due to an exodus towards digital downloads.", "score": 0.6}
+]
+```
